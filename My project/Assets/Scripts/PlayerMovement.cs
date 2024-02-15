@@ -6,20 +6,21 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     //Unity Inspector
-    [SerializeField] Rigidbody2D rigidbody_;
-    [SerializeField] float speed_;
+
+    [SerializeField] private Rigidbody2D rigidbody_;
+    [SerializeField] private float speed_;
 
     //Fields
-    Vector2 inputDirection_;
+    private Vector2 inputDirection_;
+
     public void Move(InputAction.CallbackContext context)
     {
         inputDirection_ = context.ReadValue<Vector2>();
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
     }
 
     private void FixedUpdate()
@@ -27,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         var currentPosition = (Vector2)transform.position;
         var targetPosition = currentPosition + inputDirection_;

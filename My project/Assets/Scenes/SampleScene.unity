@@ -225,8 +225,9 @@ GameObject:
   m_Component:
   - component: {fileID: 638535944}
   - component: {fileID: 638535943}
-  - component: {fileID: 638535942}
   - component: {fileID: 638535941}
+  - component: {fileID: 638535942}
+  - component: {fileID: 638535945}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -274,8 +275,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbody_: {fileID: 638535941}
-  speed_: 11
   playerManager_: {fileID: 1089095006}
+  speed_: 11
 --- !u!212 &638535943
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -343,6 +344,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &638535945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638535940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57a4797ab4adcb142803e9ca98581782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health_: 1
 --- !u!1 &1089095005
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,6 +415,7 @@ GameObject:
   - component: {fileID: 1470081853}
   - component: {fileID: 1470081857}
   - component: {fileID: 1470081856}
+  - component: {fileID: 1470081858}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -610,6 +625,19 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1470081858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470081852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57a4797ab4adcb142803e9ca98581782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health_: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
