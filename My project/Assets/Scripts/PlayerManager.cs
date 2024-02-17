@@ -7,11 +7,13 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Transform playerTransform_;
     [SerializeField] private Health playerHealth_;
 
-    public Vector2 Position
+    private static PlayerManager instance_;
+
+    public static Vector2 Position
     {
         get
         {
-            return playerTransform_.position;
+            return instance_.playerTransform_.position;
         }
     }
 
@@ -21,5 +23,10 @@ public class PlayerManager : MonoBehaviour
         {
             return playerHealth_.Value;
         }
+    }
+
+    private void Awake()
+    {
+        instance_ = this;
     }
 }
