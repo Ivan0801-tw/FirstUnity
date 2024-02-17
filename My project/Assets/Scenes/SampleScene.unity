@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 638535946}
   - component: {fileID: 638535948}
   - component: {fileID: 638535947}
+  - component: {fileID: 638535949}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -398,7 +399,19 @@ MonoBehaviour:
   health_: 1
   healthChange_:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 638535949}
+        m_TargetAssemblyTypeName: Death, Assembly-CSharp
+        m_MethodName: CheckDeath
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &638535946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,6 +477,18 @@ MonoBehaviour:
   attack_:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &638535949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638535940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7db7fcce78d5034f8118704aa894a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &696821271
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,9 +700,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1089095007}
   - component: {fileID: 1089095006}
-  - component: {fileID: 1089095008}
   - component: {fileID: 1089095010}
   - component: {fileID: 1089095009}
+  - component: {fileID: 1089095011}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -714,18 +739,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1089095008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1089095005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b833583f268e1794481968f72b621792, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1089095009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -753,6 +766,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missilePrefab_: {fileID: 1358737705454115672, guid: f86c90a6d06086047bc825e53b82a270, type: 3}
   playerManager_: {fileID: 1089095006}
+--- !u!114 &1089095011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089095005}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b833583f268e1794481968f72b621792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1222473559
 GameObject:
   m_ObjectHideFlags: 0
@@ -961,6 +986,7 @@ GameObject:
   - component: {fileID: 1470081858}
   - component: {fileID: 1470081859}
   - component: {fileID: 1470081860}
+  - component: {fileID: 1470081861}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1199,6 +1225,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1470081861}
+        m_TargetAssemblyTypeName: Death, Assembly-CSharp
+        m_MethodName: CheckDeath
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1470081859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1258,6 +1296,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1470081861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470081852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7db7fcce78d5034f8118704aa894a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1973626122
 GameObject:
   m_ObjectHideFlags: 0

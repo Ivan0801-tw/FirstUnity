@@ -8,7 +8,7 @@ public class Health : MonoBehaviour
     //Unity Inspector
 
     [SerializeField] private int health_;
-    [SerializeField] private UnityEvent healthChange_;
+    [SerializeField] private UnityEvent<int> healthChange_;
 
     public int Value
     {
@@ -23,6 +23,6 @@ public class Health : MonoBehaviour
             return;
         }
         health_ -= amount;
-        healthChange_.Invoke();
+        healthChange_.Invoke(health_);
     }
 }
