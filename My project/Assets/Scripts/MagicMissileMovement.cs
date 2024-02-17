@@ -10,7 +10,7 @@ public class MagicMissileMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rigidbody_;
     [SerializeField] private float speed_;
 
-    private Vector2 direction_;
+    private Vector2 targetDirection_;
 
     private GameObject LocateEnemy()
     {
@@ -28,13 +28,13 @@ public class MagicMissileMovement : MonoBehaviour
         return null;
     }
 
-    private Vector2 MoveDircetion(Transform target)
+    private Vector2 MoveDircetion(Transform enemtTransform, Vector2 playerDirection)
     {
-        var direction = new Vector2(1, 0);
+        var direction = playerDirection;
 
-        if (target != null)
+        if (enemtTransform != null)
         {
-            direction = target.position - transform.position;
+            direction = enemtTransform.position - transform.position;
             direction.Normalize();
         }
 
@@ -44,13 +44,13 @@ public class MagicMissileMovement : MonoBehaviour
     private void Awake()
     {
         var enemy = LocateEnemy();
-        direction_ = MoveDircetion(enemy?.transform);
-        transform.rotation = Quaternion.LookRotation(Vector3.forward, direction_);
+        targetDirection_ = MoveDircetion(enemy?.transform, PlayerManager.Direction);
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, targetDirection_);
     }
 
     private void Update()
     {
-        var targetPosition = (Vector2)transform.position + direction_;
+        var targetPosition = (Vector2)transform.position + targetDirection_;
         rigidbody_.DOMove(targetPosition, speed_).SetSpeedBased();
     }
 }

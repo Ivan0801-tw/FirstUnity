@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private Transform playerTransform_;
     [SerializeField] private Health playerHealth_;
+    [SerializeField] private PlayerMovement playerMovement_;
 
     private static PlayerManager instance_;
 
@@ -22,6 +24,14 @@ public class PlayerManager : MonoBehaviour
         get
         {
             return playerHealth_.Value;
+        }
+    }
+
+    public static Vector2 Direction
+    {
+        get
+        {
+            return instance_.playerMovement_.LastDirection;
         }
     }
 

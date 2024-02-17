@@ -11,7 +11,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed_;
 
     //Fields
+
     private Vector2 inputDirection_;
+    private Vector2 lastDireciton_;
+
+    public Vector2 LastDirection
+    {
+        get
+        {
+            return lastDireciton_;
+        }
+    }
 
     public void Move(InputAction.CallbackContext context)
     {
@@ -33,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
         var currentPosition = (Vector2)transform.position;
         var targetPosition = currentPosition + inputDirection_;
         rigidbody_.DOMove(targetPosition, speed_).SetSpeedBased();
+        lastDireciton_ = inputDirection_;
     }
 
     private void LateUpdate()
