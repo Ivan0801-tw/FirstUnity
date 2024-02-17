@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class EnemyMovement : MonoBehaviour
 
     [SerializeField] private Rigidbody2D rigidbody_;
     [SerializeField] private float speed_;
+    [SerializeField] private UnityEvent<Vector2> moveDirection;
 
     // Start is called before the first frame update
     private void Start()
@@ -29,5 +31,8 @@ public class EnemyMovement : MonoBehaviour
         //count target position to move
         var targetPosition = currentPosition + direction;
         rigidbody_.DOMove(targetPosition, speed_).SetSpeedBased();
+
+        //Invoke Move Event
+        moveDirection.Invoke(direction);
     }
 }

@@ -769,6 +769,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform_: {fileID: 1470081855}
   playerHealth_: {fileID: 1470081858}
+  playerMovement_: {fileID: 1470081856}
 --- !u!4 &1089095007
 Transform:
   m_ObjectHideFlags: 0
