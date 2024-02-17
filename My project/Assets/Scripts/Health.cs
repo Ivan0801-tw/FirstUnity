@@ -13,7 +13,7 @@ public class Health : MonoBehaviour
         get { return health_; }
     }
 
-    public void Damage(int amount)
+    public void Decrease(int amount)
     {
         if (health_.Equals(0))
         {

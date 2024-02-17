@@ -264,6 +264,7 @@ GameObject:
   - component: {fileID: 638535941}
   - component: {fileID: 638535942}
   - component: {fileID: 638535945}
+  - component: {fileID: 638535946}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -393,6 +394,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health_: 1
+--- !u!114 &638535946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638535940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7718b5e35cb849241ae9e1a8488d3d00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health_: {fileID: 638535945}
+  spriteRenderer_: {fileID: 638535943}
 --- !u!1 &696821271
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,6 +861,7 @@ GameObject:
   - component: {fileID: 1470081857}
   - component: {fileID: 1470081856}
   - component: {fileID: 1470081858}
+  - component: {fileID: 1470081859}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1069,6 +1085,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health_: 10
+--- !u!114 &1470081859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470081852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7718b5e35cb849241ae9e1a8488d3d00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health_: {fileID: 1470081858}
+  spriteRenderer_: {fileID: 1470081854}
 --- !u!1 &1973626122
 GameObject:
   m_ObjectHideFlags: 0
