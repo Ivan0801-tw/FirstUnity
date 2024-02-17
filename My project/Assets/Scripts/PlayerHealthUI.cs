@@ -19,14 +19,13 @@ public class PlayerHealthUI : MonoBehaviour
         healthBar_.value = playerManager_.Health;
     }
 
-    // Update is called once per frame
-    private void Update()
+    public void UpdateUI()
     {
         UpdatePlayerHealth();
     }
 
     private void UpdatePlayerHealth()
     {
-        //playerManager_
+        healthBar_.value = playerManager_.Health;
     }
 }
