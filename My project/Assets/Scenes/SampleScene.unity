@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 638535947}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -460,6 +460,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be8f6570cbb4bcd47802c357485d1345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTag_: Player
+  attack_:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &696821271
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,6 +676,8 @@ GameObject:
   - component: {fileID: 1089095007}
   - component: {fileID: 1089095006}
   - component: {fileID: 1089095008}
+  - component: {fileID: 1089095010}
+  - component: {fileID: 1089095009}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -720,6 +726,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b833583f268e1794481968f72b621792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1089095009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089095005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb720fc1a758b041b372709e6cb7397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creator_: {fileID: 1089095010}
+--- !u!114 &1089095010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089095005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f9aa17172c1974c8778b2de0e9de37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missilePrefab_: {fileID: 1358737705454115672, guid: f86c90a6d06086047bc825e53b82a270, type: 3}
+  playerManager_: {fileID: 1089095006}
 --- !u!1 &1222473559
 GameObject:
   m_ObjectHideFlags: 0
