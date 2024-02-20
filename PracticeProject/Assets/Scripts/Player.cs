@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float jumpForce_;
     private Rigidbody2D rigidbody_;
     private bool isTouchGround_ = false;
+    private bool isFacingRight_ = true;
     private bool canJump_ = true;
 
     // Start is called before the first frame update
@@ -40,10 +42,14 @@ public class Player : MonoBehaviour
         float movement = speed_ * Time.deltaTime;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
+            if (isFacingRight_) transform.DOScaleX(-1f, 0);
+            isFacingRight_ = false;
             transform.position += new Vector3(-movement, 0, 0);
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
+            if (!isFacingRight_) transform.DOScaleX(1f, 0);
+            isFacingRight_ = true;
             transform.position += new Vector3(movement, 0, 0);
         }
     }
@@ -52,7 +58,7 @@ public class Player : MonoBehaviour
     {
         if (!canJump_) return;
         if (!isTouchGround_) return;
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.X))
         {
             rigidbody_.AddForce(new Vector2(0f, 1f * jumpForce_), ForceMode2D.Impulse);
             canJump_ = false;
