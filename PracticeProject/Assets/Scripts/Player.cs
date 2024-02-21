@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class Player : MonoBehaviour
 {
@@ -39,19 +40,18 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        float movement = speed_ * Time.deltaTime;
-        if (Input.GetKey(KeyCode.LeftArrow))
+        rigidbody_.velocity = new Vector2(speed_ * Input.GetAxis("Horizontal"), rigidbody_.velocity.y);
+        if ((Input.GetAxis("Horizontal") < 0 && isFacingRight_) ||
+            (Input.GetAxis("Horizontal") > 0 && !isFacingRight_))
         {
-            if (isFacingRight_) transform.DOScaleX(-1f, 0);
-            isFacingRight_ = false;
-            transform.position += new Vector3(-movement, 0, 0);
+            Flip();
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            if (!isFacingRight_) transform.DOScaleX(1f, 0);
-            isFacingRight_ = true;
-            transform.position += new Vector3(movement, 0, 0);
-        }
+    }
+
+    private void Flip()
+    {
+        isFacingRight_ = !isFacingRight_;
+        transform.DOScaleX(isFacingRight_ ? 1 : -1, 0);
     }
 
     private void Jump()
