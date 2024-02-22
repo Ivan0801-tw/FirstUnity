@@ -8,7 +8,6 @@ public class PlayerAttack : MonoBehaviour
     private GameObject attack_;
 
     [Header("îªù–")]
-    private BoxCollider2D attackTrigger_;
     private ContactFilter2D enemyFilter;
     private bool isAttacking_ = false;
 
@@ -16,7 +15,6 @@ public class PlayerAttack : MonoBehaviour
     private void Start()
     {
         attack_ = transform.GetChild(0).gameObject;
-        attackTrigger_ = attack_.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
