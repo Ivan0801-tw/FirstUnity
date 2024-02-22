@@ -38,6 +38,14 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            isTouchGround_ = false;
+        }
+    }
+
     private void Move()
     {
         rigidbody_.velocity = new Vector2(speed_ * Input.GetAxis("Horizontal"), rigidbody_.velocity.y);
@@ -62,7 +70,6 @@ public class Player : MonoBehaviour
         {
             rigidbody_.AddForce(new Vector2(0f, 1f * jumpForce_), ForceMode2D.Impulse);
             canJump_ = false;
-            isTouchGround_ = false;
             StartCoroutine(JumpDelay());
         }
     }
