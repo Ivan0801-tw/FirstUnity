@@ -6,6 +6,7 @@ using System;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private Animator animator_;
     [SerializeField] private float speed_;
     [SerializeField] private float jumpForce_;
     private Rigidbody2D rigidbody_;
@@ -48,18 +49,27 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        rigidbody_.velocity = new Vector2(speed_ * Input.GetAxis("Horizontal"), rigidbody_.velocity.y);
-        if ((Input.GetAxis("Horizontal") < 0 && isFacingRight_) ||
-            (Input.GetAxis("Horizontal") > 0 && !isFacingRight_))
+        if (gameObject.GetComponent<PlayerAttack>().IsAttacking)
         {
-            Flip();
+            return;
         }
+
+        float inputDirectionX = Input.GetAxis("Horizontal");
+        rigidbody_.velocity = new Vector2(speed_ * inputDirectionX, rigidbody_.velocity.y);
+        ChangeMoveAnimation(inputDirectionX);
     }
 
-    private void Flip()
+    private void ChangeMoveAnimation(float direction)
     {
-        isFacingRight_ = !isFacingRight_;
-        transform.DOScaleX(isFacingRight_ ? 1 : -1, 0);
+        if ((direction < 0 && isFacingRight_) ||
+            (direction > 0 && !isFacingRight_))
+        {
+            //Flip
+            isFacingRight_ = !isFacingRight_;
+            transform.DOScaleX(isFacingRight_ ? 1 : -1, 0);
+        }
+
+        animator_.Play(direction != 0 ? "Walk" : "Idle");
     }
 
     private void Jump()
