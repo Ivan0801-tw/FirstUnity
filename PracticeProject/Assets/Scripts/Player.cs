@@ -51,6 +51,7 @@ public class Player : MonoBehaviour
     {
         if (gameObject.GetComponent<PlayerAttack>().IsAttacking)
         {
+            if (isTouchGround_) rigidbody_.velocity = new Vector2(0, rigidbody_.velocity.y);
             return;
         }
 

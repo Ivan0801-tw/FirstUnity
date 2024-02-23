@@ -46,7 +46,7 @@ public class PlayerAttack : MonoBehaviour
 
     private IEnumerator HideAttackFX()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         isAttacking_ = false;
         attack_.SetActive(false);
         animator_.StopPlayback();
