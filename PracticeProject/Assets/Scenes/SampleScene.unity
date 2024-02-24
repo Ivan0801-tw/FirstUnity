@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator_: {fileID: 674643045}
+  hp_: 10
   speed_: 10
   jumpForce_: 10
 --- !u!114 &674643044

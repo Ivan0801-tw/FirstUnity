@@ -53,7 +53,6 @@ public class PlayerAttack : MonoBehaviour
 
     private void AttackEnemy()
     {
-        Debug.Log("AttackEnemy");
         Collider2D[] enemyColliderList = new Collider2D[10];
         var enemyCount = attack_.GetComponent<BoxCollider2D>().OverlapCollider(enemyFilter_, enemyColliderList);
         if (enemyCount > 0)

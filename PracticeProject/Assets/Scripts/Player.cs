@@ -7,6 +7,7 @@ using System;
 public class Player : MonoBehaviour
 {
     [SerializeField] private Animator animator_;
+    [SerializeField] private int hp_;
     [SerializeField] private float speed_;
     [SerializeField] private float jumpForce_;
     private Rigidbody2D rigidbody_;
@@ -39,7 +40,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground")
+        if (collision.gameObject.CompareTag("Ground"))
         {
             isTouchGround_ = true;
         }
@@ -47,7 +48,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground")
+        if (collision.gameObject.CompareTag("Ground"))
         {
             isTouchGround_ = false;
         }
@@ -100,5 +101,10 @@ public class Player : MonoBehaviour
     public static Vector3 LocalPosition
     {
         get { return instance_.transform.localPosition; }
+    }
+
+    public static void Damage(int amount)
+    {
+        instance_.hp_ -= amount;
     }
 }
