@@ -7,6 +7,7 @@ using System;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float speed_;
+    [SerializeField] private int hp_;
     [SerializeField] private float stopTrackRange_;
     [SerializeField] private GameObject player_;
     private Rigidbody2D rigidbody_;
@@ -68,6 +69,15 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             isTouchGround_ = false;
+        }
+    }
+
+    public void Damage(int amount)
+    {
+        hp_ -= amount;
+        if (hp_ <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }
