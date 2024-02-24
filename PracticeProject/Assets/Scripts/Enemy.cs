@@ -9,7 +9,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float speed_;
     [SerializeField] private int hp_;
     [SerializeField] private float stopTrackRange_;
-    [SerializeField] private GameObject player_;
     private Rigidbody2D rigidbody_;
     private bool isTouchGround_ = false;
 
@@ -37,7 +36,7 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        var target = player_.transform.localPosition;
+        var target = Player.LocalPosition;
         var current = transform.localPosition;
         var delta = target - current;
 

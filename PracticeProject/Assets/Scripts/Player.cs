@@ -13,6 +13,12 @@ public class Player : MonoBehaviour
     private bool isTouchGround_ = false;
     private bool isFacingRight_ = true;
     private bool canJump_ = true;
+    public static Player instance_;
+
+    private void Awake()
+    {
+        instance_ = this;
+    }
 
     // Start is called before the first frame update
     private void Start()
@@ -89,5 +95,10 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         canJump_ = true;
+    }
+
+    public static Vector3 LocalPosition
+    {
+        get { return instance_.transform.localPosition; }
     }
 }
