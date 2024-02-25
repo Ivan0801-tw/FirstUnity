@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class Player : MonoBehaviour
 {
@@ -14,7 +15,28 @@ public class Player : MonoBehaviour
     private bool isTouchGround_ = false;
     private bool isFacingRight_ = true;
     private bool canJump_ = true;
-    public static Player instance_;
+    private static Player instance_;
+
+    public static Player Instance
+    {
+        get
+        {
+            if (instance_ != null)
+            {
+                // õﬂ„Síêç˚ìISingletonï®åè
+                return instance_;
+            }
+            // êqùQõﬂ„Sç›SceneìISingletonï®åè:
+            instance_ = FindObjectOfType<Player>();
+            if (instance_ != null)
+            {
+                return instance_;
+            }
+            // õâéûënåöSingletonï®åè
+            // CreateDefault();
+            return instance_;
+        }
+    }
 
     private void Awake()
     {
@@ -100,11 +122,16 @@ public class Player : MonoBehaviour
 
     public static Vector3 LocalPosition
     {
-        get { return instance_.transform.localPosition; }
+        get { return Instance.transform.localPosition; }
+    }
+
+    public static int Hp
+    {
+        get { return Instance.hp_; }
     }
 
     public static void Damage(int amount)
     {
-        instance_.hp_ -= amount;
+        Instance.hp_ -= amount;
     }
 }
