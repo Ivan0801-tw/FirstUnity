@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float stopTrackRange_;
     private Animator animator_;
     private Rigidbody2D rigidbody_;
+    private EnemyAttack attack_;
     private bool isTouchGround_ = false;
     private bool isFacingRight_ = true;
     private bool isDead_ = false;
@@ -34,6 +35,7 @@ public class Enemy : MonoBehaviour
     {
         animator_ = GetComponent<Animator>();
         rigidbody_ = GetComponent<Rigidbody2D>();
+        attack_ = GetComponent<EnemyAttack>();
     }
 
     private void FixedUpdate()
