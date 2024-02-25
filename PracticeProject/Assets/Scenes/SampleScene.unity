@@ -657,6 +657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator_: {fileID: 674643045}
   rigidbody_: {fileID: 674643039}
+  renderer_: {fileID: 674643040}
   attack_: {fileID: 2043793121}
   hp_: 10
   speed_: 10

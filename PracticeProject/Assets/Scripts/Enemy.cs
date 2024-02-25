@@ -44,7 +44,6 @@ public class Enemy : MonoBehaviour
         {
             if (!animator_.GetCurrentAnimatorStateInfo((int)EnemyAnimationLayer.Base).IsName(EnemyAnimation.Die.ToString()))
             {
-                Debug.Log("hello");
                 rigidbody_.velocity = Vector2.zero;
                 animator_.Play(EnemyAnimation.Die.ToString());
             }
