@@ -1,19 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Timers;
 using UnityEngine;
 
 public class EnemyGenerator : MonoBehaviour
 {
-    [SerializeField] private GameObject prefab_;
+    [SerializeField] private EnemyPool pool_;
+    [SerializeField] private float maxRange_;
+    [SerializeField] private float minRange_;
 
-    // Start is called before the first frame update
+    [SerializeField] private float interval_ = 1.5f;
+    private float timePassed_;
+
     private void Start()
     {
-        Instantiate(prefab_, transform.localPosition, Quaternion.identity);
+        GenerateNext();
     }
 
-    // Update is called once per frame
     private void Update()
     {
+        if (timePassed_ < interval_)
+        {
+            timePassed_ += Time.deltaTime;
+            return;
+        }
+        else
+        {
+            timePassed_ = 0;
+            GenerateNext();
+        }
+    }
+
+    private void GenerateNext()
+    {
+        var position = transform.position;
+        position.x = Random.Range(minRange_, maxRange_);
+        pool_.GetNext(position);
     }
 }
