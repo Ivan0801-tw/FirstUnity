@@ -495,7 +495,6 @@ GameObject:
   - component: {fileID: 674643039}
   - component: {fileID: 674643042}
   - component: {fileID: 674643043}
-  - component: {fileID: 674643044}
   - component: {fileID: 674643045}
   m_Layer: 10
   m_Name: Player
@@ -658,22 +657,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator_: {fileID: 674643045}
   rigidbody_: {fileID: 674643039}
+  attack_: {fileID: 2043793121}
   hp_: 10
   speed_: 10
   jumpForce_: 10
---- !u!114 &674643044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 674643038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe04c3c23595cb144a1d3f21c04a731e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator_: {fileID: 674643045}
 --- !u!95 &674643045
 Animator:
   serializedVersion: 5
@@ -1580,6 +1567,7 @@ GameObject:
   - component: {fileID: 2043793118}
   - component: {fileID: 2043793120}
   - component: {fileID: 2043793119}
+  - component: {fileID: 2043793121}
   m_Layer: 11
   m_Name: AttackTrigger
   m_TagString: Untagged
@@ -1699,6 +1687,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2043793121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043793117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe04c3c23595cb144a1d3f21c04a731e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator_: {fileID: 674643045}
+  boxCollider_: {fileID: 2043793119}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

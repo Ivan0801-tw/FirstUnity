@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Animator animator_;
     [SerializeField] private Rigidbody2D rigidbody_;
+    [SerializeField] private PlayerAttack attack_;
     [SerializeField] private int hp_;
     [SerializeField] private float speed_;
     [SerializeField] private float jumpForce_;
@@ -77,7 +78,7 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        if (gameObject.GetComponent<PlayerAttack>().IsAttacking)
+        if (attack_.IsAttacking)
         {
             if (isTouchGround_) rigidbody_.velocity = new Vector2(0, rigidbody_.velocity.y);
             return;
@@ -117,6 +118,11 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         canJump_ = true;
+    }
+
+    public void AttackEnemy()
+    {
+        attack_.AttackEnemy();
     }
 
     public static Vector3 LocalPosition

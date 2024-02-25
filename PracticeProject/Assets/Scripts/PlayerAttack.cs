@@ -6,7 +6,7 @@ using DG.Tweening;
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private Animator animator_;
-    private GameObject attack_;
+    [SerializeField] private BoxCollider2D boxCollider_;
 
     [Header("îªù–")]
     private ContactFilter2D enemyFilter_;
@@ -23,7 +23,6 @@ public class PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        attack_ = transform.GetChild(0).gameObject;
         enemyFilter_.SetLayerMask(LayerMask.GetMask("Enemy"));
     }
 
@@ -51,10 +50,10 @@ public class PlayerAttack : MonoBehaviour
         animator_.StopPlayback();
     }
 
-    private void AttackEnemy()
+    public void AttackEnemy()
     {
         Collider2D[] enemyColliderList = new Collider2D[10];
-        var enemyCount = attack_.GetComponent<BoxCollider2D>().OverlapCollider(enemyFilter_, enemyColliderList);
+        var enemyCount = boxCollider_.OverlapCollider(enemyFilter_, enemyColliderList);
         if (enemyCount > 0)
         {
             foreach (var enemyCollider in enemyColliderList)
