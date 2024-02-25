@@ -139,6 +139,11 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void AttackPlayer()
+    {
+        attack_.AttackPlayer();
+    }
+
     public void StopAttack()
     {
         attack_.StopAttack();

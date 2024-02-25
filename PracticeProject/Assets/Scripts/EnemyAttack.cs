@@ -10,6 +10,8 @@ public class EnemyAttack : MonoBehaviour
     private bool isAttacking_ = false;
     private bool isCoolDown_ = false;
     private bool isPlayerInRange_ = false;
+    private ContactFilter2D playerFilter_;
+    private BoxCollider2D boxCollider_;
 
     public bool IsAttacking
     {
@@ -22,6 +24,8 @@ public class EnemyAttack : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        boxCollider_ = GetComponent<BoxCollider2D>();
+        playerFilter_.SetLayerMask(LayerMask.GetMask("Player"));
     }
 
     // Update is called once per frame
@@ -71,5 +75,15 @@ public class EnemyAttack : MonoBehaviour
     internal void StopAttack()
     {
         isAttacking_ = false;
+    }
+
+    internal void AttackPlayer()
+    {
+        Collider2D[] enemyColliderList = new Collider2D[1];
+        var enemyCount = boxCollider_.OverlapCollider(playerFilter_, enemyColliderList);
+        if (enemyCount > 0)
+        {
+            Player.Damage(1);
+        }
     }
 }
