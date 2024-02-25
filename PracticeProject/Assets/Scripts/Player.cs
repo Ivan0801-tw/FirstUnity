@@ -20,32 +20,9 @@ public class Player : MonoBehaviour
     private bool isTouchGround_ = false;
     private bool isFacingRight_ = true;
     private bool canJump_ = true;
-    private static Player instance_;
-
-    public static Player Instance
-    {
-        get
-        {
-            if (instance_ != null)
-            {
-                // ›ßãS’û“ISingleton•¨Œ
-                return instance_;
-            }
-            // qQ›ßãSİScene“ISingleton•¨Œ:
-            instance_ = FindObjectOfType<Player>();
-            if (instance_ != null)
-            {
-                return instance_;
-            }
-            // ›‰‘nŒšSingleton•¨Œ
-            // CreateDefault();
-            return instance_;
-        }
-    }
 
     private void Awake()
     {
-        instance_ = this;
     }
 
     // Start is called before the first frame update
@@ -133,35 +110,35 @@ public class Player : MonoBehaviour
         attack_.AttackEnemy();
     }
 
-    public static Vector3 LocalPosition
+    public Vector3 LocalPosition
     {
-        get { return Instance.transform.localPosition; }
+        get { return transform.localPosition; }
     }
 
-    public static int Hp
+    public int Hp
     {
-        get { return Instance.hp_; }
+        get { return hp_; }
     }
 
-    public static void Damage(int amount)
+    public void Damage(int amount)
     {
-        Instance.hp_ -= amount;
-        if (Instance.hp_ <= 0)
+        hp_ -= amount;
+        if (hp_ <= 0)
         {
-            Instance.isDead_ = true;
-            Instance.animator_.Play("Die");
+            isDead_ = true;
+            animator_.Play("Die");
         }
         else
         {
-            Instance.StartCoroutine(ChangeColor(Color.red));
+            StartCoroutine(ChangeColor(Color.red));
         }
     }
 
-    private static IEnumerator ChangeColor(Color color)
+    private IEnumerator ChangeColor(Color color)
     {
-        Instance.renderer_.DOColor(color, 0.1f);
+        renderer_.DOColor(color, 0.1f);
         yield return new WaitForSeconds(0.2f);
-        Instance.renderer_.DOColor(Color.white, 0.1f);
+        renderer_.DOColor(Color.white, 0.1f);
     }
 
     public void Died()

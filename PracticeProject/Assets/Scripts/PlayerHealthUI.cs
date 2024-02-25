@@ -10,17 +10,20 @@ public class PlayerHealthUI : MonoBehaviour
     private void Awake()
     {
         healthSlider_ = GetComponent<Slider>();
-        healthSlider_.maxValue = Player.Hp;
     }
 
-    // Start is called before the first frame update
-    private void Start()
+    private void OnEnable()
     {
+        PlayerManager.OnHpChanged += RefreshHealthBar;
     }
 
-    // Update is called once per frame
-    private void Update()
+    private void OnDisable()
     {
-        healthSlider_.value = Player.Hp;
+        PlayerManager.OnHpChanged -= RefreshHealthBar;
+    }
+
+    private void RefreshHealthBar(int health)
+    {
+        healthSlider_.value = health;
     }
 }
