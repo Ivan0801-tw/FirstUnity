@@ -7,8 +7,17 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     [SerializeField] private float coolDownTime_;
+    private bool isAttacking_ = false;
     private bool isCoolDown_ = false;
     private bool isPlayerInRange_ = false;
+
+    public bool IsAttacking
+    {
+        get
+        {
+            return isAttacking_;
+        }
+    }
 
     // Start is called before the first frame update
     private void Start()
@@ -46,7 +55,9 @@ public class EnemyAttack : MonoBehaviour
         {
             return;
         }
-        Debug.Log("Attack");
+        isAttacking_ = true;
+        GetComponentInParent<Animator>().Play(EnemyAnimation.Attack.ToString());
+
         isCoolDown_ = true;
         StartCoroutine(refreshCoolDown());
     }
@@ -55,5 +66,10 @@ public class EnemyAttack : MonoBehaviour
     {
         yield return new WaitForSeconds(coolDownTime_);
         isCoolDown_ = false;
+    }
+
+    internal void StopAttack()
+    {
+        isAttacking_ = false;
     }
 }

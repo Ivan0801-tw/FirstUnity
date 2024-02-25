@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
     {
         animator_ = GetComponent<Animator>();
         rigidbody_ = GetComponent<Rigidbody2D>();
-        attack_ = GetComponent<EnemyAttack>();
+        attack_ = GetComponentInChildren<EnemyAttack>();
     }
 
     private void FixedUpdate()
@@ -63,6 +63,12 @@ public class Enemy : MonoBehaviour
         //觸碰地面後才能開始移動
         if (!isTouchGround_)
         {
+            return;
+        }
+
+        if (attack_.IsAttacking)
+        {
+            rigidbody_.velocity = Vector2.zero;
             return;
         }
 
@@ -131,5 +137,10 @@ public class Enemy : MonoBehaviour
     public void Destroy()
     {
         Destroy(gameObject);
+    }
+
+    public void StopAttack()
+    {
+        attack_.StopAttack();
     }
 }
