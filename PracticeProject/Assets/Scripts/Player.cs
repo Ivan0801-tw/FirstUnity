@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int hp_;
     [SerializeField] private float speed_;
     [SerializeField] private float jumpForce_;
+    private bool isDead_ = false;
     private bool isTouchGround_ = false;
     private bool isFacingRight_ = true;
     private bool canJump_ = true;
@@ -52,6 +53,10 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isDead_)
+        {
+            return;
+        }
         Move();
         Jump();
     }
@@ -139,13 +144,26 @@ public class Player : MonoBehaviour
     public static void Damage(int amount)
     {
         Instance.hp_ -= amount;
-        Instance.StartCoroutine(ChangeColor(Color.red));
+        if (Instance.hp_ <= 0)
+        {
+            Instance.isDead_ = true;
+            Instance.animator_.Play("Die");
+        }
+        else
+        {
+            Instance.StartCoroutine(ChangeColor(Color.red));
+        }
     }
 
     private static IEnumerator ChangeColor(Color color)
     {
-        Instance.renderer_.DOColor(Color.red, 0.1f);
+        Instance.renderer_.DOColor(color, 0.1f);
         yield return new WaitForSeconds(0.2f);
         Instance.renderer_.DOColor(Color.white, 0.1f);
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }
