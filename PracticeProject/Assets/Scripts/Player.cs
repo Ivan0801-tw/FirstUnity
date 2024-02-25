@@ -8,10 +8,10 @@ using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 public class Player : MonoBehaviour
 {
     [SerializeField] private Animator animator_;
+    [SerializeField] private Rigidbody2D rigidbody_;
     [SerializeField] private int hp_;
     [SerializeField] private float speed_;
     [SerializeField] private float jumpForce_;
-    private Rigidbody2D rigidbody_;
     private bool isTouchGround_ = false;
     private bool isFacingRight_ = true;
     private bool canJump_ = true;
@@ -46,7 +46,6 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        rigidbody_ = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
