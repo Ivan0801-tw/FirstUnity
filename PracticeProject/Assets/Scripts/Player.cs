@@ -4,9 +4,11 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] public UnityEvent died_;
     [SerializeField] private Animator animator_;
     [SerializeField] private Rigidbody2D rigidbody_;
     [SerializeField] private SpriteRenderer renderer_;
@@ -162,8 +164,8 @@ public class Player : MonoBehaviour
         Instance.renderer_.DOColor(Color.white, 0.1f);
     }
 
-    public void Destroy()
+    public void Died()
     {
-        Destroy(gameObject);
+        died_.Invoke();
     }
 }
