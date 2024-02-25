@@ -3,6 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using System.Threading;
+
+internal enum EnemyAnimationLayer
+{
+    Base = 0,
+}
+
+internal enum EnemyAnimation
+{
+    Idle = 0,
+    Walk = 1,
+    Attack = 2,
+    Die = 3,
+}
 
 public class Enemy : MonoBehaviour
 {
@@ -13,6 +27,7 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D rigidbody_;
     private bool isTouchGround_ = false;
     private bool isFacingRight_ = true;
+    private bool isDead_ = false;
 
     // Start is called before the first frame update
     private void Start()
@@ -23,6 +38,16 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isDead_)
+        {
+            if (!animator_.GetCurrentAnimatorStateInfo((int)EnemyAnimationLayer.Base).IsName(EnemyAnimation.Die.ToString()))
+            {
+                Debug.Log("hello");
+                rigidbody_.velocity = Vector2.zero;
+                animator_.Play(EnemyAnimation.Die.ToString());
+            }
+            return;
+        }
         TrackPlayer();
     }
 
@@ -71,7 +96,7 @@ public class Enemy : MonoBehaviour
             transform.DOScaleX(isFacingRight_ ? 1 : -1, 0);
         }
 
-        animator_.Play(direction != 0 ? "Walk" : "Idle");
+        animator_.Play(direction != 0 ? EnemyAnimation.Walk.ToString() : EnemyAnimation.Idle.ToString());
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -92,10 +117,17 @@ public class Enemy : MonoBehaviour
 
     public void Damage(int amount)
     {
+        if (isDead_) return;
+
         hp_ -= amount;
         if (hp_ <= 0)
         {
-            Destroy(gameObject);
+            isDead_ = true;
         }
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }
