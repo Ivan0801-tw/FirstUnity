@@ -20,6 +20,8 @@ internal enum EnemyAnimation
 
 public class Enemy : MonoBehaviour
 {
+    public static event Action OnDead;
+
     [SerializeField] private float speed_;
     [SerializeField] private int hp_;
     [SerializeField] private float stopTrackRange_;
@@ -124,12 +126,16 @@ public class Enemy : MonoBehaviour
 
     public void Damage(int amount)
     {
-        if (isDead_) return;
+        if (isDead_)
+        {
+            return;
+        }
 
         hp_ -= amount;
         if (hp_ <= 0)
         {
             isDead_ = true;
+            OnDead?.Invoke();
         }
     }
 
