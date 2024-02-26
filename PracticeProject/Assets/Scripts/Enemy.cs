@@ -71,7 +71,7 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        var target = Player.LocalPosition;
+        var target = Player.Instance.LocalPosition;
         var current = transform.localPosition;
         var deltaX = target.x - current.x;
 

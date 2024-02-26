@@ -5,6 +5,7 @@ using DG.Tweening;
 using System;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 using UnityEngine.Events;
+using Unity.VisualScripting;
 
 public class Player : MonoBehaviour
 {
@@ -20,6 +21,39 @@ public class Player : MonoBehaviour
     private bool isTouchGround_ = false;
     private bool isFacingRight_ = true;
     private bool canJump_ = true;
+
+    private static Player instance_;
+
+    private Player()
+    {
+    }
+
+    public static Player Instance
+    {
+        get
+        {
+            if (instance_ != null)
+            {
+                // ›ßãS’û“ISingleton•¨Œ
+                return instance_;
+            }
+            instance_ = FindObjectOfType<Player>();
+            //qQ›ßãSİScene“ISingleton•¨Œ:
+            if (instance_ != null)
+            {
+                return instance_;
+            }
+            // ›‰‘nŒšSingleton•¨Œ
+            CreateDefault();
+            return instance_;
+        }
+    }
+
+    private static void CreateDefault()
+    {
+        GameObject player = new GameObject("Singleton");
+        instance_ = player.AddComponent<Player>();
+    }
 
     private void Awake()
     {

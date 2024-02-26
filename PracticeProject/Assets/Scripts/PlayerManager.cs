@@ -5,20 +5,18 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private Player player_;
-
     private int lastHp_;
 
     public static event Action<int> OnHpChanged;
 
     private void Awake()
     {
-        lastHp_ = player_.Hp;
+        lastHp_ = Player.Instance.Hp;
     }
 
     private void Update()
     {
-        CheckIsHpChanged(player_.Hp);
+        CheckIsHpChanged(Player.Instance.Hp);
     }
 
     private void CheckIsHpChanged(int hp)
