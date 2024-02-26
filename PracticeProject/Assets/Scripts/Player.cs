@@ -9,7 +9,6 @@ using Unity.VisualScripting;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] public UnityEvent died_;
     [SerializeField] private Animator animator_;
     [SerializeField] private Rigidbody2D rigidbody_;
     [SerializeField] private SpriteRenderer renderer_;
@@ -154,6 +153,11 @@ public class Player : MonoBehaviour
         get { return hp_; }
     }
 
+    public bool IsDead
+    {
+        get { return isDead_; }
+    }
+
     public void Damage(int amount)
     {
         hp_ -= amount;
@@ -173,10 +177,5 @@ public class Player : MonoBehaviour
         renderer_.DOColor(color, 0.1f);
         yield return new WaitForSeconds(0.2f);
         renderer_.DOColor(Color.white, 0.1f);
-    }
-
-    public void Died()
-    {
-        died_.Invoke();
     }
 }
