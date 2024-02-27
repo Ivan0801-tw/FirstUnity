@@ -14,12 +14,12 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-        lastHp_ = Player.Instance.Hp;
+        lastHp_ = PlayerStatus.Instance.Hp;
     }
 
     private void Update()
     {
-        CheckIsHpChanged(Player.Instance.Hp);
+        CheckIsHpChanged(PlayerStatus.Instance.Hp);
         CheckIsDead();
     }
 
@@ -28,11 +28,6 @@ public class PlayerManager : MonoBehaviour
         if (isDeadEventTriggered_)
         {
             return;
-        }
-        if (Player.Instance.IsDead)
-        {
-            OnDead?.Invoke();
-            isDeadEventTriggered_ = true;
         }
     }
 

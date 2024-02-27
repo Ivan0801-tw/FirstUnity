@@ -10,8 +10,8 @@ public class PlayerHealthUI : MonoBehaviour
     private void Awake()
     {
         healthSlider_ = GetComponent<Slider>();
-        healthSlider_.maxValue = Player.Instance.Hp;
-        healthSlider_.value = Player.Instance.Hp;
+        healthSlider_.maxValue = PlayerStatus.Instance.Hp;
+        healthSlider_.value = PlayerStatus.Instance.Hp;
     }
 
     private void OnEnable()

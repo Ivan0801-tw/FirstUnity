@@ -83,7 +83,6 @@ public class EnemyAttack : MonoBehaviour
         var enemyCount = boxCollider_.OverlapCollider(playerFilter_, enemyColliderList);
         if (enemyCount > 0)
         {
-            Player.Instance.Damage(1);
         }
     }
 }
