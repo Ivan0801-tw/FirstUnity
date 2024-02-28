@@ -46,6 +46,7 @@ public class PlayerAnimation : MonoBehaviour
         PlayerAttackState.OnEnter += Attack;
         PlayerIdleInAirState.OnEnter += InAir;
         PlayerMoveInAirState.OnEnter += InAir;
+        PlayerDieState.OnEnter += Die;
     }
 
     private void OnDisable()
@@ -56,6 +57,7 @@ public class PlayerAnimation : MonoBehaviour
         PlayerAttackState.OnEnter -= Attack;
         PlayerIdleInAirState.OnEnter -= InAir;
         PlayerMoveInAirState.OnEnter -= InAir;
+        PlayerDieState.OnEnter -= Die;
     }
 
     private void Jump()
@@ -85,5 +87,10 @@ public class PlayerAnimation : MonoBehaviour
     private void Attack()
     {
         animator_.SetTrigger(PlayerAnimateState.Attack.ToString());
+    }
+
+    private void Die()
+    {
+        animator_.Play(PlayerAnimateState.Die.ToString());
     }
 }

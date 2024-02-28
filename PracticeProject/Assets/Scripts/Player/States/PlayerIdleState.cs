@@ -13,11 +13,7 @@ public class PlayerIdleState : PlayerStateBase
 
     public override void Update(PlayerStateManager manager)
     {
-        if (PlayerStatus.Instance.Hp <= 0)
-        {
-            manager.SwitchState(manager.die_);
-        }
-        else if (!Equals(Input.GetAxis("Horizontal"), 0f))
+        if (!Equals(Input.GetAxis("Horizontal"), 0f))
         {
             manager.SwitchState(manager.move_);
         }

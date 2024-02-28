@@ -21,6 +21,10 @@ public class PlayerStateManager : MonoBehaviour
 
     private void Update()
     {
+        if (PlayerStatus.Instance.Hp <= 0)
+        {
+            SwitchState(die_);
+        }
         currentState_.Update(this);
     }
 

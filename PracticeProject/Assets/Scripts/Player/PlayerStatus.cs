@@ -8,7 +8,7 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField] private int hp_;
     [SerializeField] private float moveSpeed_;
     [SerializeField] private float jumpForce_;
-    [SerializeField] private float attackDamage_;
+    [SerializeField] private int attackDamage_;
     [SerializeField] private bool isFacingRight_;
 
     public int Hp
@@ -29,7 +29,7 @@ public class PlayerStatus : MonoBehaviour
         set => jumpForce_ = value;
     }
 
-    public float AttackDamage
+    public int AttackDamage
     {
         get => attackDamage_;
         set => attackDamage_ = value;
