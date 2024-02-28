@@ -73,6 +73,8 @@ public class PlayerAnimation : MonoBehaviour
     {
         animator_.SetBool(PlayerAnimateState.Walk.ToString(), false);
         animator_.SetBool(PlayerAnimateState.InAir.ToString(), false);
+        animator_.ResetTrigger(PlayerAnimateState.Attack.ToString());
+        animator_.ResetTrigger(PlayerAnimateState.Jump.ToString());
     }
 
     private void InAir()
