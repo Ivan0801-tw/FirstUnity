@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rigidbody_;
     private ContactFilter2D attackFilter_;
 
-    private static PlayerController instance_;
+    private static EnemyController instance_;
 
-    public static PlayerController Instance
+    public static EnemyController Instance
     {
         get
         {
@@ -20,15 +20,15 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         instance_ = this;
-        attackFilter_.SetLayerMask(LayerMask.GetMask("Enemy"));
+        attackFilter_.SetLayerMask(LayerMask.GetMask("Player"));
     }
 
     public void Move(float inputDirection)
     {
         var velocity = rigidbody_.velocity;
-        velocity.x = PlayerStatus.Instance.MoveSpeed * inputDirection;
+        velocity.x = EnemyStatus.Instance.MoveSpeed * inputDirection;
         rigidbody_.velocity = velocity;
-        PlayerStatus.Instance.IsFacingRight = inputDirection > 0f;
+        EnemyStatus.Instance.IsFacingRight = inputDirection > 0f;
     }
 
     public void Stop()
@@ -38,35 +38,41 @@ public class PlayerController : MonoBehaviour
         rigidbody_.velocity = velocity;
     }
 
-    public void Jump()
-    {
-        AddForce(new Vector2(0, 1), PlayerStatus.Instance.JumpForce);
-    }
-
     public void AddForce(Vector2 vector, float force)
     {
         vector.Normalize();
         rigidbody_.AddForce(new Vector2(vector.x * force, vector.y * force), ForceMode2D.Impulse);
     }
 
-    public void Attack()
+    public bool IsPlayerInRange(out Collider2D[] contacts)
     {
+        contacts = new Collider2D[1];
         var collider = transform.GetChild(0).GetComponent<BoxCollider2D>();
-        var contacts = new Collider2D[5];
         var result = collider.OverlapCollider(attackFilter_, contacts);
-        if (result > 0)
+        return result > 0;
+    }
+
+    public void AttackPlayer()
+    {
+        Collider2D[] contacts;
+        if (IsPlayerInRange(out contacts))
         {
-            var damage = PlayerStatus.Instance.AttackDamage;
+            var damage = EnemyStatus.Instance.AttackDamage;
             foreach (var contact in contacts)
             {
-                contact?.GetComponent<EnemyController>()?.Damage(damage);
+                contact?.GetComponent<PlayerController>()?.Damage(damage);
             }
         }
     }
 
     public void Damage(int damage)
     {
-        PlayerStatus.Instance.Hp -= damage;
-        AddForce(PlayerStatus.Instance.IsFacingRight ? Vector2.left : Vector2.right, damage);
+        EnemyStatus.Instance.Hp -= damage;
+        AddForce(EnemyStatus.Instance.IsFacingRight ? Vector2.left : Vector2.right, damage);
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }

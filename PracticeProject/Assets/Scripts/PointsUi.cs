@@ -11,12 +11,12 @@ public class PointsUi : MonoBehaviour
 
     private void OnEnable()
     {
-        Enemy.OnDead += AddPoint;
+        EnemyDieState.OnEnter += AddPoint;
     }
 
     private void OnDisable()
     {
-        Enemy.OnDead -= AddPoint;
+        EnemyDieState.OnEnter -= AddPoint;
     }
 
     private void AddPoint()

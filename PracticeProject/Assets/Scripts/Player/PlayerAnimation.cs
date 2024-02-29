@@ -91,6 +91,6 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Die()
     {
-        animator_.Play(PlayerAnimateState.Die.ToString());
+        animator_.SetTrigger(PlayerAnimateState.Die.ToString());
     }
 }
