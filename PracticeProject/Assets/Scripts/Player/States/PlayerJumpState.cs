@@ -7,7 +7,6 @@ public class PlayerJumpState : PlayerStateBase
 
     public override void Enter(PlayerStateManager manager)
     {
-        Debug.Log("Enter Jump");
         OnEnter?.Invoke();
         PlayerController.Instance.Jump();
     }

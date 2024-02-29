@@ -7,7 +7,6 @@ public class PlayerMoveState : PlayerStateBase
 
     public override void Enter(PlayerStateManager manager)
     {
-        Debug.Log("Enter Move");
         OnEnter?.Invoke();
     }
 

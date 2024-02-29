@@ -9,7 +9,6 @@ public class PlayerMoveInAirState : PlayerStateBase
 
     public override void Enter(PlayerStateManager manager)
     {
-        Debug.Log("Enter MoveInAir");
         OnEnter?.Invoke();
         isInAir_ = true;
     }

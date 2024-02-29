@@ -7,7 +7,6 @@ public class PlayerIdleState : PlayerStateBase
 
     public override void Enter(PlayerStateManager manager)
     {
-        Debug.Log("Enter Idle");
         OnEnter?.Invoke();
     }
 

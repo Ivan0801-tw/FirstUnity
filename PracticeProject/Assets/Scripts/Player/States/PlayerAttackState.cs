@@ -7,7 +7,6 @@ public class PlayerAttackState : PlayerStateBase
 
     public override void Enter(PlayerStateManager manager)
     {
-        Debug.Log("Enter Attack");
         OnEnter?.Invoke();
         PlayerController.Instance.Stop();
     }

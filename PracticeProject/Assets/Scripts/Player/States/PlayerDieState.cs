@@ -7,7 +7,6 @@ public class PlayerDieState : PlayerStateBase
 
     public override void Enter(PlayerStateManager manager)
     {
-        Debug.Log("Enter Die");
         OnEnter?.Invoke();
     }
 
