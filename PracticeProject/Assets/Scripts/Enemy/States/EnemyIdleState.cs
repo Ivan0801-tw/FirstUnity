@@ -3,12 +3,9 @@ using UnityEngine;
 
 public class EnemyIdleState : EnemyStateBase
 {
-    public static event Action OnEnter;
-
     public override void Enter(EnemyStateManager manager)
     {
-        Debug.Log("Enter Idle");
-        OnEnter?.Invoke();
+        EnemyAnimation.Instance.PlayIdle();
     }
 
     public override void Update(EnemyStateManager manager)

@@ -1,25 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : Singleton<EnemyController>
 {
-    [SerializeField] private Rigidbody2D rigidbody_;
+    private Rigidbody2D rigidbody_;
     private ContactFilter2D attackFilter_;
 
-    private static EnemyController instance_;
+    public static event Action OnDestroy;
 
-    public static EnemyController Instance
+    private new void Awake()
     {
-        get
-        {
-            return instance_;
-        }
-    }
-
-    private void Awake()
-    {
-        instance_ = this;
+        base.Awake();
+        rigidbody_ = GetComponent<Rigidbody2D>();
         attackFilter_.SetLayerMask(LayerMask.GetMask("Player"));
     }
 
@@ -73,6 +68,7 @@ public class EnemyController : MonoBehaviour
 
     public void Destroy()
     {
+        OnDestroy?.Invoke();
         Destroy(gameObject);
     }
 }

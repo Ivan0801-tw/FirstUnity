@@ -4,12 +4,9 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class EnemyMoveState : EnemyStateBase
 {
-    public static event Action OnEnter;
-
     public override void Enter(EnemyStateManager manager)
     {
-        Debug.Log("Enter Move");
-        OnEnter?.Invoke();
+        EnemyAnimation.Instance.PlayWalk();
     }
 
     public override void Update(EnemyStateManager manager)

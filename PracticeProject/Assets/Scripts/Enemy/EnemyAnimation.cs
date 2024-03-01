@@ -11,65 +11,39 @@ public enum EnemyAnimateState
     Die
 }
 
-public class EnemyAnimation : MonoBehaviour
+public class EnemyAnimation : Singleton<EnemyAnimation>
 {
-    [SerializeField] private Animator animator_;
+    private Animator animator_;
 
-    private static EnemyAnimation instance_;
-
-    public static EnemyAnimation Instance
+    private new void Awake()
     {
-        get
-        {
-            return instance_;
-        }
+        base.Awake();
+        animator_ = GetComponent<Animator>();
     }
 
     public bool IsPlaying(EnemyAnimateState animate)
     {
-        return animator_.GetCurrentAnimatorStateInfo(0).IsName(animate.ToString()) &&
-            animator_.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f;
+        return animator_.GetCurrentAnimatorStateInfo(0).IsName(animate.ToString());
     }
 
-    private void Awake()
-    {
-        instance_ = this;
-    }
-
-    private void OnEnable()
-    {
-        EnemyIdleState.OnEnter += Idle;
-        EnemyMoveState.OnEnter += Walk;
-        EnemyAttackState.OnEnter += Attack;
-        EnemyDieState.OnEnter += Die;
-    }
-
-    private void OnDisable()
-    {
-        EnemyIdleState.OnEnter -= Idle;
-        EnemyMoveState.OnEnter -= Walk;
-        EnemyAttackState.OnEnter -= Attack;
-        EnemyDieState.OnEnter -= Die;
-    }
-
-    private void Walk()
+    public void PlayWalk()
     {
         animator_.SetBool(EnemyAnimateState.Walk.ToString(), true);
     }
 
-    private void Idle()
+    public void PlayIdle()
     {
         animator_.SetBool(EnemyAnimateState.Walk.ToString(), false);
         animator_.ResetTrigger(EnemyAnimateState.Attack.ToString());
     }
 
-    private void Attack()
+    public void PlayAttack()
     {
         animator_.SetTrigger(EnemyAnimateState.Attack.ToString());
     }
 
-    private void Die()
+    public void PlayDie()
     {
-        animator_.SetTrigger(EnemyAnimateState.Die.ToString());
+        animator_.Play(EnemyAnimateState.Die.ToString());
     }
 }

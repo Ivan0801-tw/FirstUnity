@@ -3,20 +3,13 @@ using UnityEngine;
 
 public class EnemyDieState : EnemyStateBase
 {
-    public static event Action OnEnter;
-
     public override void Enter(EnemyStateManager manager)
     {
-        Debug.Log("Enter Die");
-        OnEnter?.Invoke();
+        EnemyAnimation.Instance.PlayDie();
     }
 
     public override void Update(EnemyStateManager manager)
     {
-        if (!EnemyAnimation.Instance.IsPlaying(EnemyAnimateState.Die))
-        {
-            EnemyController.Instance.Destroy();
-        }
     }
 
     public override void OnCollisionEnter2D(EnemyStateManager manager, Collision2D collision)
