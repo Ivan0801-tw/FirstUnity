@@ -13,65 +13,33 @@ public enum PlayerAnimateState
     Die
 }
 
-public class PlayerAnimation : MonoBehaviour
+public class PlayerAnimation : Singleton<PlayerAnimation>
 {
-    [SerializeField] private Animator animator_;
-
-    private static PlayerAnimation instance_;
-
-    public static PlayerAnimation Instance
-    {
-        get
-        {
-            return instance_;
-        }
-    }
+    private Animator animator_;
 
     public bool IsPlaying(PlayerAnimateState animate)
     {
-        return animator_.GetCurrentAnimatorStateInfo(0).IsName(animate.ToString()) &&
-            animator_.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f;
+        return animator_.GetCurrentAnimatorStateInfo(0).IsName(animate.ToString());
     }
 
-    private void Awake()
+    private new void Awake()
     {
-        instance_ = this;
+        base.Awake();
+        animator_ = GetComponent<Animator>();
     }
 
-    private void OnEnable()
-    {
-        PlayerIdleState.OnEnter += Idle;
-        PlayerMoveState.OnEnter += Walk;
-        PlayerJumpState.OnEnter += Jump;
-        PlayerAttackState.OnEnter += Attack;
-        PlayerIdleInAirState.OnEnter += InAir;
-        PlayerMoveInAirState.OnEnter += InAir;
-        PlayerDieState.OnEnter += Die;
-    }
-
-    private void OnDisable()
-    {
-        PlayerIdleState.OnEnter -= Idle;
-        PlayerMoveState.OnEnter -= Walk;
-        PlayerJumpState.OnEnter -= Jump;
-        PlayerAttackState.OnEnter -= Attack;
-        PlayerIdleInAirState.OnEnter -= InAir;
-        PlayerMoveInAirState.OnEnter -= InAir;
-        PlayerDieState.OnEnter -= Die;
-    }
-
-    private void Jump()
+    public void PlayJump()
     {
         animator_.SetTrigger(PlayerAnimateState.Jump.ToString());
     }
 
-    private void Walk()
+    public void PlayWalk()
     {
         animator_.SetBool(PlayerAnimateState.Walk.ToString(), true);
         animator_.SetBool(PlayerAnimateState.InAir.ToString(), false);
     }
 
-    private void Idle()
+    public void PlayIdle()
     {
         animator_.SetBool(PlayerAnimateState.Walk.ToString(), false);
         animator_.SetBool(PlayerAnimateState.InAir.ToString(), false);
@@ -79,17 +47,17 @@ public class PlayerAnimation : MonoBehaviour
         animator_.ResetTrigger(PlayerAnimateState.Jump.ToString());
     }
 
-    private void InAir()
+    public void PlayInAir()
     {
         animator_.SetBool(PlayerAnimateState.InAir.ToString(), true);
     }
 
-    private void Attack()
+    public void PlayAttack()
     {
         animator_.SetTrigger(PlayerAnimateState.Attack.ToString());
     }
 
-    private void Die()
+    public void PlayDie()
     {
         animator_.SetTrigger(PlayerAnimateState.Die.ToString());
     }

@@ -3,11 +3,9 @@ using UnityEngine;
 
 public class PlayerDieState : PlayerStateBase
 {
-    public static event Action OnEnter;
-
     public override void Enter(PlayerStateManager manager)
     {
-        OnEnter?.Invoke();
+        PlayerAnimation.Instance.PlayDie();
     }
 
     public override void Update(PlayerStateManager manager)

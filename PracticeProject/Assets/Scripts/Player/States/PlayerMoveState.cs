@@ -3,11 +3,9 @@ using UnityEngine;
 
 public class PlayerMoveState : PlayerStateBase
 {
-    public static event Action OnEnter;
-
     public override void Enter(PlayerStateManager manager)
     {
-        OnEnter?.Invoke();
+        PlayerAnimation.Instance.PlayWalk();
     }
 
     public override void Update(PlayerStateManager manager)

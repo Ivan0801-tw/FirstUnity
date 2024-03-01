@@ -5,12 +5,10 @@ public class PlayerIdleInAirState : PlayerStateBase
 {
     private bool isInAir_ = false;
 
-    public static event Action OnEnter;
-
     public override void Enter(PlayerStateManager manager)
     {
-        OnEnter?.Invoke();
         isInAir_ = true;
+        PlayerAnimation.Instance.PlayInAir();
     }
 
     public override void Update(PlayerStateManager manager)

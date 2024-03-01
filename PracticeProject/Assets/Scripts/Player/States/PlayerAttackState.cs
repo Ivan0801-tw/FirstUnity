@@ -3,12 +3,10 @@ using UnityEngine;
 
 public class PlayerAttackState : PlayerStateBase
 {
-    public static event Action OnEnter;
-
     public override void Enter(PlayerStateManager manager)
     {
-        OnEnter?.Invoke();
         PlayerController.Instance.Stop();
+        PlayerAnimation.Instance.PlayAttack();
     }
 
     public override void Update(PlayerStateManager manager)

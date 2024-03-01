@@ -3,12 +3,10 @@ using UnityEngine;
 
 public class PlayerJumpState : PlayerStateBase
 {
-    public static event Action OnEnter;
-
     public override void Enter(PlayerStateManager manager)
     {
-        OnEnter?.Invoke();
         PlayerController.Instance.Jump();
+        PlayerAnimation.Instance.PlayJump();
     }
 
     public override void Update(PlayerStateManager manager)
