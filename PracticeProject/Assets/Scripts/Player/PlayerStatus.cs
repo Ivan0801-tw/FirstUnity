@@ -3,7 +3,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-public class PlayerStatus : MonoBehaviour
+public class PlayerStatus : Singleton<PlayerStatus>
 {
     [SerializeField] private int hp_;
     [SerializeField] private float moveSpeed_;
@@ -51,20 +51,5 @@ public class PlayerStatus : MonoBehaviour
             }
             isFacingRight_ = value;
         }
-    }
-
-    private static PlayerStatus instance_;
-
-    public static PlayerStatus Instance
-    {
-        get
-        {
-            return instance_;
-        }
-    }
-
-    private void Awake()
-    {
-        instance_ = this;
     }
 }
