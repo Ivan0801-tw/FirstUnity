@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyStateManager : MonoBehaviour
 {
     public EnemyController controller_ { get; private set; }
+    public EnemyStatus status_ { get; private set; }
     private EnemyStateBase currentState_;
     private bool isDead_ = false;
 
@@ -16,6 +17,7 @@ public class EnemyStateManager : MonoBehaviour
     private void Awake()
     {
         controller_ = GetComponent<EnemyController>();
+        status_ = GetComponent<EnemyStatus>();
     }
 
     private void Start()
@@ -25,7 +27,7 @@ public class EnemyStateManager : MonoBehaviour
 
     private void Update()
     {
-        if (!isDead_ && EnemyStatus.Instance.Hp <= 0)
+        if (!isDead_ && status_.Hp <= 0)
         {
             isDead_ = true;
             SwitchState(die_);

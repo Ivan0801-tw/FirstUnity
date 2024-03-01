@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
 {
     private Rigidbody2D rigidbody_;
     private ContactFilter2D attackFilter_;
+    private EnemyStatus status_;
 
     public static event Action OnDestroy;
 
@@ -15,14 +16,15 @@ public class EnemyController : MonoBehaviour
     {
         rigidbody_ = GetComponent<Rigidbody2D>();
         attackFilter_.SetLayerMask(LayerMask.GetMask("Player"));
+        status_ = GetComponent<EnemyStatus>();
     }
 
     public void Move(float inputDirection)
     {
         var velocity = rigidbody_.velocity;
-        velocity.x = EnemyStatus.Instance.MoveSpeed * inputDirection;
+        velocity.x = status_.MoveSpeed * inputDirection;
         rigidbody_.velocity = velocity;
-        EnemyStatus.Instance.IsFacingRight = inputDirection > 0f;
+        status_.IsFacingRight = inputDirection > 0f;
     }
 
     public void Stop()
@@ -51,7 +53,7 @@ public class EnemyController : MonoBehaviour
         Collider2D[] contacts;
         if (IsPlayerInRange(out contacts))
         {
-            var damage = EnemyStatus.Instance.AttackDamage;
+            var damage = status_.AttackDamage;
             foreach (var contact in contacts)
             {
                 contact?.GetComponent<PlayerController>()?.Damage(damage);
@@ -61,8 +63,8 @@ public class EnemyController : MonoBehaviour
 
     public void Damage(int damage)
     {
-        EnemyStatus.Instance.Hp -= damage;
-        AddForce(EnemyStatus.Instance.IsFacingRight ? Vector2.left : Vector2.right, damage);
+        status_.Hp -= damage;
+        AddForce(status_.IsFacingRight ? Vector2.left : Vector2.right, damage);
     }
 
     public void Destroy()

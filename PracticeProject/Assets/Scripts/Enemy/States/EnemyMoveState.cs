@@ -12,14 +12,14 @@ public class EnemyMoveState : EnemyStateBase
     public override void Update(EnemyStateManager manager)
     {
         var target = PlayerStatus.Instance.LocalPosition;
-        var current = EnemyStatus.Instance.LocalPosition;
+        var current = manager.status_.LocalPosition;
         var deltaX = target.x - current.x;
 
-        if (Math.Abs(deltaX) <= EnemyStatus.Instance.StopTrackRange)
+        if (Math.Abs(deltaX) <= manager.status_.StopTrackRange)
         {
-            if (deltaX < 0 && EnemyStatus.Instance.IsFacingRight)
+            if (deltaX < 0 && manager.status_.IsFacingRight)
             {
-                EnemyStatus.Instance.IsFacingRight = false;
+                manager.status_.IsFacingRight = false;
             }
             manager.controller_.Stop();
             manager.SwitchState(manager.idle_);

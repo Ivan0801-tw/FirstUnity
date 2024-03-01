@@ -52,19 +52,4 @@ public class EnemyStatus : MonoBehaviour
         get => stopTrackRange_;
         set => stopTrackRange_ = value;
     }
-
-    private static EnemyStatus instance_;
-
-    public static EnemyStatus Instance
-    {
-        get
-        {
-            return instance_;
-        }
-    }
-
-    private void Awake()
-    {
-        instance_ = this;
-    }
 }
