@@ -4,16 +4,15 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyController : Singleton<EnemyController>
+public class EnemyController : MonoBehaviour
 {
     private Rigidbody2D rigidbody_;
     private ContactFilter2D attackFilter_;
 
     public static event Action OnDestroy;
 
-    private new void Awake()
+    private void Awake()
     {
-        base.Awake();
         rigidbody_ = GetComponent<Rigidbody2D>();
         attackFilter_.SetLayerMask(LayerMask.GetMask("Player"));
     }

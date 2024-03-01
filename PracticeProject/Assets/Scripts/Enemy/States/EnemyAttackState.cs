@@ -5,7 +5,7 @@ public class EnemyAttackState : EnemyStateBase
 {
     public override void Enter(EnemyStateManager manager)
     {
-        EnemyController.Instance.Stop();
+        manager.controller_.Stop();
         EnemyAnimation.Instance.PlayAttack();
     }
 

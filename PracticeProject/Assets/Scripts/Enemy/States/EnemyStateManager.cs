@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyStateManager : MonoBehaviour
 {
+    public EnemyController controller_ { get; private set; }
     private EnemyStateBase currentState_;
     private bool isDead_ = false;
 
@@ -11,6 +12,11 @@ public class EnemyStateManager : MonoBehaviour
     public readonly EnemyMoveState move_ = new EnemyMoveState();
     public readonly EnemyAttackState attack_ = new EnemyAttackState();
     public readonly EnemyDieState die_ = new EnemyDieState();
+
+    private void Awake()
+    {
+        controller_ = GetComponent<EnemyController>();
+    }
 
     private void Start()
     {

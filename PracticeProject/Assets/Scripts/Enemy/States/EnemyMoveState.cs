@@ -21,13 +21,13 @@ public class EnemyMoveState : EnemyStateBase
             {
                 EnemyStatus.Instance.IsFacingRight = false;
             }
-            EnemyController.Instance.Stop();
+            manager.controller_.Stop();
             manager.SwitchState(manager.idle_);
         }
         else
         {
             var direction = new Vector2(deltaX, 0).normalized;
-            EnemyController.Instance.Move(direction.x);
+            manager.controller_.Move(direction.x);
         }
     }
 

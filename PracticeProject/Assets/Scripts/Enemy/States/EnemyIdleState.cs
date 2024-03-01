@@ -11,7 +11,7 @@ public class EnemyIdleState : EnemyStateBase
     public override void Update(EnemyStateManager manager)
     {
         Collider2D[] collider;
-        if (EnemyController.Instance.IsPlayerInRange(out collider))
+        if (manager.controller_.IsPlayerInRange(out collider))
         {
             manager.SwitchState(manager.attack_);
         }
