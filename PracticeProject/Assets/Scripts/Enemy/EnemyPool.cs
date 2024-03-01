@@ -7,10 +7,11 @@ public class EnemyPool : MonoBehaviour
     [SerializeField] public GameObject prefab_;
     [SerializeField] public int initailSize_ = 20;
 
-    private Queue<GameObject> pool_ = new Queue<GameObject>();
+    private Queue<GameObject> pool_;
 
     private void Awake()
     {
+        pool_ = new Queue<GameObject>();
         for (int i = 0; i < initailSize_; i++)
         {
             var enemy = Instantiate(prefab_);
