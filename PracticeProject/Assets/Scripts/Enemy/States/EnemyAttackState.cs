@@ -6,12 +6,12 @@ public class EnemyAttackState : EnemyStateBase
     public override void Enter(EnemyStateManager manager)
     {
         manager.controller_.Stop();
-        EnemyAnimation.Instance.PlayAttack();
+        manager.animation_.PlayAttack();
     }
 
     public override void Update(EnemyStateManager manager)
     {
-        if (!EnemyAnimation.Instance.IsPlaying(EnemyAnimateState.Attack))
+        if (!manager.animation_.IsPlaying(EnemyAnimateState.Attack))
         {
             manager.SwitchState(manager.idle_);
         }

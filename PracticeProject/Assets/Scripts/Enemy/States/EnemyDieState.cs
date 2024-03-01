@@ -5,7 +5,7 @@ public class EnemyDieState : EnemyStateBase
 {
     public override void Enter(EnemyStateManager manager)
     {
-        EnemyAnimation.Instance.PlayDie();
+        manager.animation_.PlayDie();
     }
 
     public override void Update(EnemyStateManager manager)

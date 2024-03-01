@@ -6,7 +6,7 @@ public class EnemyMoveState : EnemyStateBase
 {
     public override void Enter(EnemyStateManager manager)
     {
-        EnemyAnimation.Instance.PlayWalk();
+        manager.animation_.PlayWalk();
     }
 
     public override void Update(EnemyStateManager manager)

@@ -5,7 +5,7 @@ public class EnemyIdleState : EnemyStateBase
 {
     public override void Enter(EnemyStateManager manager)
     {
-        EnemyAnimation.Instance.PlayIdle();
+        manager.animation_.PlayIdle();
     }
 
     public override void Update(EnemyStateManager manager)

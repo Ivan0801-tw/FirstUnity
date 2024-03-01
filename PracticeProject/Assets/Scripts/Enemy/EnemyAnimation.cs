@@ -11,13 +11,12 @@ public enum EnemyAnimateState
     Die
 }
 
-public class EnemyAnimation : Singleton<EnemyAnimation>
+public class EnemyAnimation : MonoBehaviour
 {
     private Animator animator_;
 
-    private new void Awake()
+    private void Awake()
     {
-        base.Awake();
         animator_ = GetComponent<Animator>();
     }
 
