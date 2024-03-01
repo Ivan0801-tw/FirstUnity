@@ -5,7 +5,7 @@ public class PlayerAttackState : PlayerStateBase
 {
     public override void Enter(PlayerStateManager manager)
     {
-        PlayerController.Instance.Stop();
+        manager.controller_.Stop();
         PlayerAnimation.Instance.PlayAttack();
     }
 

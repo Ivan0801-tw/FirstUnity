@@ -5,7 +5,7 @@ public class PlayerJumpState : PlayerStateBase
 {
     public override void Enter(PlayerStateManager manager)
     {
-        PlayerController.Instance.Jump();
+        manager.controller_.Jump();
         PlayerAnimation.Instance.PlayJump();
     }
 

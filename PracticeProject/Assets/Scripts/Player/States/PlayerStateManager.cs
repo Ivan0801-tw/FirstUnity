@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerStateManager : MonoBehaviour
 {
+    public PlayerController controller_ { get; private set; }
     private PlayerStateBase currentState_;
 
     public readonly PlayerIdleState idle_ = new PlayerIdleState();
@@ -13,6 +14,11 @@ public class PlayerStateManager : MonoBehaviour
     public readonly PlayerMoveInAirState moveInAir_ = new PlayerMoveInAirState();
     public readonly PlayerAttackState attack_ = new PlayerAttackState();
     public readonly PlayerDieState die_ = new PlayerDieState();
+
+    private void Awake()
+    {
+        controller_ = GetComponent<PlayerController>();
+    }
 
     private void Start()
     {

@@ -4,22 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D rigidbody_;
+    private Rigidbody2D rigidbody_;
     private ContactFilter2D attackFilter_;
-
-    private static PlayerController instance_;
-
-    public static PlayerController Instance
-    {
-        get
-        {
-            return instance_;
-        }
-    }
 
     private void Awake()
     {
-        instance_ = this;
+        rigidbody_ = GetComponent<Rigidbody2D>();
         attackFilter_.SetLayerMask(LayerMask.GetMask("Enemy"));
     }
 

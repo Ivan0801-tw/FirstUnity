@@ -13,7 +13,7 @@ public class PlayerMoveState : PlayerStateBase
         var inputDirection = Input.GetAxis("Horizontal");
         if (!Equals(inputDirection, 0f))
         {
-            PlayerController.Instance.Move(inputDirection);
+            manager.controller_.Move(inputDirection);
 
             if (Input.GetKey(KeyCode.X))
             {
