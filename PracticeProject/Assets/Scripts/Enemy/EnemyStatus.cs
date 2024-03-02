@@ -10,6 +10,12 @@ public class EnemyStatus : MonoBehaviour
     [SerializeField] private int attackDamage_;
     [SerializeField] private bool isFacingRight_;
     [SerializeField] private float stopTrackRange_;
+    private Transform transform_;
+
+    private void Awake()
+    {
+        transform_ = GetComponent<Transform>();
+    }
 
     public int Hp
     {
@@ -31,7 +37,7 @@ public class EnemyStatus : MonoBehaviour
 
     public Vector3 LocalPosition
     {
-        get => transform.localPosition;
+        get => transform_.localPosition;
     }
 
     public bool IsFacingRight
@@ -41,7 +47,7 @@ public class EnemyStatus : MonoBehaviour
         {
             if (isFacingRight_ != value)
             {
-                transform.DOScaleX(value ? 1 : -1, 0);
+                transform_.DOScaleX(value ? 1 : -1, 0);
             }
             isFacingRight_ = value;
         }
