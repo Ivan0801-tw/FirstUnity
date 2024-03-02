@@ -4,18 +4,17 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : CharacterControllerBase
 {
-    private Rigidbody2D rigidbody_;
+    public static event Action OnDestroy;
+
     private ContactFilter2D attackFilter_;
     private BoxCollider2D attatckArea_;
     private EnemyStatus status_;
 
-    public static event Action OnDestroy;
-
-    private void Awake()
+    private new void Awake()
     {
-        rigidbody_ = GetComponent<Rigidbody2D>();
+        base.Awake();
         attackFilter_.SetLayerMask(LayerMask.GetMask("Player"));
         status_ = GetComponent<EnemyStatus>();
         attatckArea_ = transform.GetChild(0).GetComponent<BoxCollider2D>();
@@ -27,20 +26,6 @@ public class EnemyController : MonoBehaviour
         velocity.x = status_.MoveSpeed * inputDirection;
         rigidbody_.velocity = velocity;
         status_.IsFacingRight = inputDirection > 0f;
-    }
-
-    public void Stop()
-    {
-        var velocity = rigidbody_.velocity;
-        velocity.x = 0;
-        rigidbody_.velocity = velocity;
-    }
-
-    public void AddForce(Vector2 vector, float force)
-    {
-        vector.Normalize();
-        vector *= force;
-        rigidbody_.AddForce(vector, ForceMode2D.Impulse);
     }
 
     public bool IsPlayerInRange(out Collider2D[] contacts)
@@ -62,7 +47,7 @@ public class EnemyController : MonoBehaviour
                 if (player != null)
                 {
                     player.Damage(damage);
-                    player.AddForce(status_.IsFacingRight ? Vector2.right : Vector2.left, damage);
+                    player.Knock(status_.IsFacingRight ? Vector2.right : Vector2.left, damage);
                 }
             }
         }
@@ -77,5 +62,10 @@ public class EnemyController : MonoBehaviour
     {
         OnDestroy?.Invoke();
         Destroy(gameObject);
+    }
+
+    public override void Stop()
+    {
+        rigidbody_.velocity = new Vector2(0, rigidbody_.velocity.y);
     }
 }

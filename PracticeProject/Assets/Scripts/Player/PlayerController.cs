@@ -4,17 +4,16 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : CharacterControllerBase
 {
     public static event Action OnDestroy;
 
-    private Rigidbody2D rigidbody_;
     private ContactFilter2D attackFilter_;
     private BoxCollider2D attackArea_;
 
-    private void Awake()
+    private new void Awake()
     {
-        rigidbody_ = GetComponent<Rigidbody2D>();
+        base.Awake();
         attackFilter_.SetLayerMask(LayerMask.GetMask("Enemy"));
         attackArea_ = transform.GetChild(0).GetComponent<BoxCollider2D>();
     }
@@ -27,23 +26,9 @@ public class PlayerController : MonoBehaviour
         PlayerStatus.Instance.IsFacingRight = inputDirection > 0f;
     }
 
-    public void Stop()
-    {
-        var velocity = rigidbody_.velocity;
-        velocity.x = 0;
-        rigidbody_.velocity = velocity;
-    }
-
     public void Jump()
     {
-        AddForce(new Vector2(0, 1), PlayerStatus.Instance.JumpForce);
-    }
-
-    public void AddForce(Vector2 vector, float force)
-    {
-        vector.Normalize();
-        vector *= force;
-        rigidbody_.AddForce(vector, ForceMode2D.Impulse);
+        Knock(new Vector2(0, 1), PlayerStatus.Instance.JumpForce);
     }
 
     public void Attack()
@@ -59,7 +44,7 @@ public class PlayerController : MonoBehaviour
                 if (enemy != null)
                 {
                     enemy.Damage(damage);
-                    enemy.AddForce(PlayerStatus.Instance.IsFacingRight ? Vector2.right : Vector2.left, damage);
+                    enemy.Knock(PlayerStatus.Instance.IsFacingRight ? Vector2.right : Vector2.left, damage);
                 }
             }
         }
