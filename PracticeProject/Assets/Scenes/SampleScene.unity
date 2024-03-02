@@ -2318,8 +2318,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pool_: {fileID: 1794787303}
-  maxRange_: 0
-  minRange_: 0
+  maxRange_: 10
+  minRange_: -10
   interval_: 1.5
 --- !u!1 &1854584831
 GameObject:

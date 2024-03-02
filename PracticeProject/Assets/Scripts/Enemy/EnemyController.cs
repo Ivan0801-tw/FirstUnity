@@ -39,7 +39,8 @@ public class EnemyController : MonoBehaviour
     public void AddForce(Vector2 vector, float force)
     {
         vector.Normalize();
-        rigidbody_.AddForce(new Vector2(vector.x * force, vector.y * force), ForceMode2D.Impulse);
+        vector *= force;
+        rigidbody_.AddForce(vector, ForceMode2D.Impulse);
     }
 
     public bool IsPlayerInRange(out Collider2D[] contacts)
@@ -57,7 +58,12 @@ public class EnemyController : MonoBehaviour
             var damage = status_.AttackDamage;
             foreach (var contact in contacts)
             {
-                contact?.GetComponent<PlayerController>()?.Damage(damage);
+                var player = contact?.GetComponent<PlayerController>();
+                if (player != null)
+                {
+                    player.Damage(damage);
+                    player.AddForce(status_.IsFacingRight ? Vector2.right : Vector2.left, damage);
+                }
             }
         }
     }
@@ -65,7 +71,6 @@ public class EnemyController : MonoBehaviour
     public void Damage(int damage)
     {
         status_.Hp -= damage;
-        AddForce(status_.IsFacingRight ? Vector2.left : Vector2.right, damage);
     }
 
     public void Destroy()

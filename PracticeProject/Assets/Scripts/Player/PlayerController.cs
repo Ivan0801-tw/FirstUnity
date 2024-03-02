@@ -10,11 +10,13 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rigidbody_;
     private ContactFilter2D attackFilter_;
+    private BoxCollider2D attackArea_;
 
     private void Awake()
     {
         rigidbody_ = GetComponent<Rigidbody2D>();
         attackFilter_.SetLayerMask(LayerMask.GetMask("Enemy"));
+        attackArea_ = transform.GetChild(0).GetComponent<BoxCollider2D>();
     }
 
     public void Move(float inputDirection)
@@ -40,20 +42,25 @@ public class PlayerController : MonoBehaviour
     public void AddForce(Vector2 vector, float force)
     {
         vector.Normalize();
-        rigidbody_.AddForce(new Vector2(vector.x * force, vector.y * force), ForceMode2D.Impulse);
+        vector *= force;
+        rigidbody_.AddForce(vector, ForceMode2D.Impulse);
     }
 
     public void Attack()
     {
-        var collider = transform.GetChild(0).GetComponent<BoxCollider2D>();
         var contacts = new Collider2D[5];
-        var result = collider.OverlapCollider(attackFilter_, contacts);
+        var result = attackArea_.OverlapCollider(attackFilter_, contacts);
         if (result > 0)
         {
             var damage = PlayerStatus.Instance.AttackDamage;
             foreach (var contact in contacts)
             {
-                contact?.GetComponent<EnemyController>()?.Damage(damage);
+                var enemy = contact?.GetComponent<EnemyController>();
+                if (enemy != null)
+                {
+                    enemy.Damage(damage);
+                    enemy.AddForce(PlayerStatus.Instance.IsFacingRight ? Vector2.right : Vector2.left, damage);
+                }
             }
         }
     }
@@ -61,13 +68,11 @@ public class PlayerController : MonoBehaviour
     public void Damage(int damage)
     {
         PlayerStatus.Instance.Hp -= damage;
-        AddForce(PlayerStatus.Instance.IsFacingRight ? Vector2.left : Vector2.right, damage);
     }
 
     public void Destroy()
     {
         OnDestroy?.Invoke();
         gameObject.SetActive(false);
-        //Destroy(gameObject);
     }
 }
