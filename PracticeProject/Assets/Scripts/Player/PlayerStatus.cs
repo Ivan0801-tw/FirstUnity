@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerStatus : Singleton<PlayerStatus>
 {
+    public event Action<int> OnHpChanged;
+
     [SerializeField] private int hp_;
     [SerializeField] private float moveSpeed_;
     [SerializeField] private float jumpForce_;
@@ -21,7 +23,14 @@ public class PlayerStatus : Singleton<PlayerStatus>
     public int Hp
     {
         get => hp_;
-        set => hp_ = value;
+        set
+        {
+            if (hp_ != value)
+            {
+                OnHpChanged?.Invoke(value);
+            }
+            hp_ = value;
+        }
     }
 
     public float MoveSpeed

@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static event Action OnDestroy;
+
     private Rigidbody2D rigidbody_;
     private ContactFilter2D attackFilter_;
 
@@ -58,5 +62,12 @@ public class PlayerController : MonoBehaviour
     {
         PlayerStatus.Instance.Hp -= damage;
         AddForce(PlayerStatus.Instance.IsFacingRight ? Vector2.left : Vector2.right, damage);
+    }
+
+    public void Destroy()
+    {
+        OnDestroy?.Invoke();
+        gameObject.SetActive(false);
+        //Destroy(gameObject);
     }
 }

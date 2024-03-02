@@ -16,12 +16,12 @@ public class PlayerHealthUI : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerManager.OnHpChanged += RefreshHealthBar;
+        PlayerStatus.Instance.OnHpChanged += RefreshHealthBar;
     }
 
     private void OnDisable()
     {
-        PlayerManager.OnHpChanged -= RefreshHealthBar;
+        PlayerStatus.Instance.OnHpChanged -= RefreshHealthBar;
     }
 
     private void RefreshHealthBar(int health)

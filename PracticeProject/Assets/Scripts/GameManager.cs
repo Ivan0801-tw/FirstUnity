@@ -4,30 +4,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     public static event Action OnGameOver;
 
-    public static event Action OnRestart;
-
     private void OnEnable()
     {
-        PlayerManager.OnDead += GameOver;
+        PlayerController.OnDestroy += GameOver;
     }
 
     private void OnDisable()
     {
-        PlayerManager.OnDead -= GameOver;
+        PlayerController.OnDestroy -= GameOver;
     }
 
     public void GameOver()
     {
+        TimeManager.Instance.ChangeTimeScale(0);
         OnGameOver?.Invoke();
     }
 
     public void Restart()
     {
-        OnRestart?.Invoke();
+        TimeManager.Instance.ChangeTimeScale(1);
         SceneManager.LoadScene(0);
     }
 }

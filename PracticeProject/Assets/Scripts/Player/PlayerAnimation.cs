@@ -59,6 +59,6 @@ public class PlayerAnimation : Singleton<PlayerAnimation>
 
     public void PlayDie()
     {
-        animator_.SetTrigger(PlayerAnimateState.Die.ToString());
+        animator_.Play(PlayerAnimateState.Die.ToString());
     }
 }

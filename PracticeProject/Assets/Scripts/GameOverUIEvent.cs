@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameOverUIEvent : MonoBehaviour
+public class GameOverUIEvent : Singleton<GameOverUIEvent>
 {
     [SerializeField] private GameObject gameOverUi_;
 
