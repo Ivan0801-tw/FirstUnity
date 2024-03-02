@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
 {
     private Rigidbody2D rigidbody_;
     private ContactFilter2D attackFilter_;
+    private BoxCollider2D attatckArea_;
     private EnemyStatus status_;
 
     public static event Action OnDestroy;
@@ -17,6 +18,7 @@ public class EnemyController : MonoBehaviour
         rigidbody_ = GetComponent<Rigidbody2D>();
         attackFilter_.SetLayerMask(LayerMask.GetMask("Player"));
         status_ = GetComponent<EnemyStatus>();
+        attatckArea_ = transform.GetChild(0).GetComponent<BoxCollider2D>();
     }
 
     public void Move(float inputDirection)
@@ -43,8 +45,7 @@ public class EnemyController : MonoBehaviour
     public bool IsPlayerInRange(out Collider2D[] contacts)
     {
         contacts = new Collider2D[1];
-        var collider = transform.GetChild(0).GetComponent<BoxCollider2D>();
-        var result = collider.OverlapCollider(attackFilter_, contacts);
+        var result = attatckArea_.OverlapCollider(attackFilter_, contacts);
         return result > 0;
     }
 
