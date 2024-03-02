@@ -10,6 +10,13 @@ public class PlayerStatus : Singleton<PlayerStatus>
     [SerializeField] private float jumpForce_;
     [SerializeField] private int attackDamage_;
     [SerializeField] private bool isFacingRight_;
+    private Transform transform_;
+
+    private new void Awake()
+    {
+        base.Awake();
+        transform_ = GetComponent<Transform>();
+    }
 
     public int Hp
     {
@@ -37,7 +44,7 @@ public class PlayerStatus : Singleton<PlayerStatus>
 
     public Vector3 LocalPosition
     {
-        get => transform.localPosition;
+        get => transform_.localPosition;
     }
 
     public bool IsFacingRight
@@ -47,7 +54,7 @@ public class PlayerStatus : Singleton<PlayerStatus>
         {
             if (isFacingRight_ != value)
             {
-                transform.DOScaleX(value ? 1 : -1, 0);
+                transform_.DOScaleX(value ? 1 : -1, 0);
             }
             isFacingRight_ = value;
         }
