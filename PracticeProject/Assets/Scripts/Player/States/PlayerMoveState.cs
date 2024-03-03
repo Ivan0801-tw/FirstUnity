@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 public class PlayerMoveState : PlayerStateBase
@@ -10,16 +10,16 @@ public class PlayerMoveState : PlayerStateBase
 
     public override void Update(PlayerStateManager manager)
     {
-        var inputDirection = Input.GetAxis("Horizontal");
-        if (!Equals(inputDirection, 0f))
+        Vector2 vector;
+        if (manager.IsInputMove(out vector))
         {
-            manager.controller_.Move(inputDirection);
+            manager.controller_.Move(vector.x);
 
-            if (Input.GetKey(KeyCode.X))
+            if (manager.inputActions_.Player.Jump.triggered)
             {
                 manager.SwitchState(manager.jump_);
             }
-            else if (Input.GetKey(KeyCode.Z))
+            else if (manager.inputActions_.Player.Attack.triggered)
             {
                 manager.SwitchState(manager.attack_);
             }

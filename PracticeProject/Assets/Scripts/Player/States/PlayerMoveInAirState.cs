@@ -13,10 +13,10 @@ public class PlayerMoveInAirState : PlayerStateBase
 
     public override void Update(PlayerStateManager manager)
     {
-        var inputDirection = Input.GetAxis("Horizontal");
-        if (!Equals(inputDirection, 0f))
+        Vector2 vector;
+        if (manager.IsInputMove(out vector))
         {
-            manager.controller_.Move(inputDirection);
+            manager.controller_.Move(vector.x);
 
             if (!isInAir_)
             {

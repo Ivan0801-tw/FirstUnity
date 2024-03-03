@@ -6,19 +6,20 @@ public class PlayerIdleState : PlayerStateBase
     public override void Enter(PlayerStateManager manager)
     {
         PlayerAnimation.Instance.PlayIdle();
+        manager.controller_.Stop();
     }
 
     public override void Update(PlayerStateManager manager)
     {
-        if (!Equals(Input.GetAxis("Horizontal"), 0f))
+        if (manager.IsInputMove(out _))
         {
             manager.SwitchState(manager.move_);
         }
-        else if (Input.GetKey(KeyCode.X))
+        else if (manager.inputActions_.Player.Jump.triggered)
         {
             manager.SwitchState(manager.jump_);
         }
-        else if (Input.GetKey(KeyCode.Z))
+        else if (manager.inputActions_.Player.Attack.triggered)
         {
             manager.SwitchState(manager.attack_);
         }

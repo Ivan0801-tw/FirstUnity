@@ -11,7 +11,7 @@ public class PlayerJumpState : PlayerStateBase
 
     public override void Update(PlayerStateManager manager)
     {
-        if (!Equals(Input.GetAxis("Horizontal"), 0f))
+        if (manager.IsInputMove(out _))
         {
             manager.SwitchState(manager.moveInAir_);
         }

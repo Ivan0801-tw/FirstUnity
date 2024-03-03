@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerStateManager : MonoBehaviour
 {
     public PlayerController controller_ { get; private set; }
+    public PlayerInputActions inputActions_ { get; private set; }
     private PlayerStateBase currentState_;
 
     public readonly PlayerIdleState idle_ = new PlayerIdleState();
@@ -18,6 +20,17 @@ public class PlayerStateManager : MonoBehaviour
     private void Awake()
     {
         controller_ = GetComponent<PlayerController>();
+        inputActions_ = new PlayerInputActions();
+    }
+
+    private void OnEnable()
+    {
+        inputActions_.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions_.Player.Disable();
     }
 
     private void Start()
@@ -38,6 +51,12 @@ public class PlayerStateManager : MonoBehaviour
     {
         currentState_ = state;
         currentState_.Enter(this);
+    }
+
+    public bool IsInputMove(out Vector2 vector)
+    {
+        vector = inputActions_.Player.Movement.ReadValue<Vector2>();
+        return vector != Vector2.zero;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
