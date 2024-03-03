@@ -8,6 +8,12 @@ public class GameManager : Singleton<GameManager>
 {
     public static event Action OnGameOver;
 
+    private new void Awake()
+    {
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void OnEnable()
     {
         PlayerController.OnDestroy += GameOver;
