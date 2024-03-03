@@ -27,7 +27,7 @@ public class GameManager : Singleton<GameManager>
     public void Restart()
     {
         TimeManager.Instance.ChangeTimeScale(1);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneLoader.Instance.LoadScene((int)Scenes.Game);
     }
 
     public void Quit()
