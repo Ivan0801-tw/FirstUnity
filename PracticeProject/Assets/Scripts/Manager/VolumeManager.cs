@@ -12,7 +12,6 @@ public class VolumeManager : Singleton<VolumeManager>
     private new void Awake()
     {
         base.Awake();
-        DontDestroyOnLoad(gameObject);
         if (!PlayerPrefs.HasKey(key_))
         {
             Safe(1.0f);

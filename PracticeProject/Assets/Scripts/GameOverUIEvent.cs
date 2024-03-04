@@ -2,10 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameOverUIEvent : Singleton<GameOverUIEvent>
 {
     [SerializeField] private GameObject gameOverUi_;
+    [SerializeField] private EventSystem eventSystem_;
+    [SerializeField] private GameObject selectOnShow_;
 
     private void OnEnable()
     {
@@ -19,9 +22,7 @@ public class GameOverUIEvent : Singleton<GameOverUIEvent>
 
     private void Show()
     {
-        if (gameOverUi_ != null)
-        {
-            gameOverUi_.SetActive(true);
-        }
+        gameOverUi_?.SetActive(true);
+        eventSystem_?.SetSelectedGameObject(selectOnShow_);
     }
 }
