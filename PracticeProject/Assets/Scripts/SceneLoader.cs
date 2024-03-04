@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 internal enum Scenes
 {
@@ -12,6 +12,7 @@ internal enum Scenes
 public class SceneLoader : Singleton<SceneLoader>
 {
     [SerializeField] private Animator animator_;
+    [SerializeField] private AudioSource audioSource_;
     private float transitionTime_ = 1.0f;
 
     public void LoadScene(int sceneIndex)
@@ -22,6 +23,7 @@ public class SceneLoader : Singleton<SceneLoader>
     private IEnumerator StartLoad(int sceneIndex)
     {
         animator_.SetTrigger("Start");
+        audioSource_?.DOFade(0, 1);
         yield return new WaitForSeconds(transitionTime_);
         SceneManager.LoadScene(sceneIndex);
     }

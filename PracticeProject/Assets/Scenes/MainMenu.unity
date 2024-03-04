@@ -1640,6 +1640,7 @@ GameObject:
   - component: {fileID: 1367463299}
   - component: {fileID: 1367463298}
   - component: {fileID: 1367463301}
+  - component: {fileID: 1367463302}
   m_Layer: 0
   m_Name: MasterManager
   m_TagString: Untagged
@@ -1683,8 +1684,7 @@ Transform:
   m_LocalPosition: {x: 657.00323, y: 276.17603, z: -1.8222599}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1691133288}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1367463301
@@ -1700,6 +1700,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volumeSlider_: {fileID: 170045229}
+--- !u!114 &1367463302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367463297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ab4e5c87e2350d4eb6cc63949570f8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource_: {fileID: 1691133287}
 --- !u!1 &1386521645
 GameObject:
   m_ObjectHideFlags: 0
@@ -2175,7 +2188,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 475f4837af487ce4a9e68bb227455e4c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2268,11 +2281,11 @@ Transform:
   m_GameObject: {fileID: 1691133286}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -657.00323, y: -276.17603, z: 1.8222599}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1367463300}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1778883142
 GameObject:
@@ -2743,10 +2756,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneLoad
       objectReference: {fileID: 0}
-    - target: {fileID: 4831833829505099272, guid: 1bdaeaded6846fd478d6ef8b4bde0f56, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 5659582338452238937, guid: 1bdaeaded6846fd478d6ef8b4bde0f56, type: 3}
+      propertyPath: audioSource_
+      value: 
+      objectReference: {fileID: 1691133287}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2761,3 +2774,4 @@ SceneRoots:
   - {fileID: 1031211208}
   - {fileID: 1410288594}
   - {fileID: 1367463300}
+  - {fileID: 1691133288}

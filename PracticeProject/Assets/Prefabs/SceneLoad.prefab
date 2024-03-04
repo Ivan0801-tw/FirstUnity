@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator_: {fileID: 3331172802167455553}
+  audioSource_: {fileID: 0}
 --- !u!1 &6327565711043355623
 GameObject:
   m_ObjectHideFlags: 0
