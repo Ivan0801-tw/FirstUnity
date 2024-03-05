@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class GameOverUIEvent : Singleton<GameOverUIEvent>
+public class GameOverMenu : Singleton<GameOverMenu>
 {
     [SerializeField] private GameObject gameOverUi_;
     [SerializeField] private EventSystem eventSystem_;

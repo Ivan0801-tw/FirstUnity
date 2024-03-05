@@ -35,6 +35,12 @@ public class GameManager : Singleton<GameManager>
         SceneLoader.Instance.LoadScene((int)Scenes.Game);
     }
 
+    public void BackToMenu()
+    {
+        TimeManager.Instance.ChangeTimeScale(1);
+        SceneLoader.Instance.LoadScene((int)Scenes.MainMenu);
+    }
+
     public void Quit()
     {
         Application.Quit();

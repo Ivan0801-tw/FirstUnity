@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,10 @@ using UnityEngine.InputSystem;
 
 public class PauseManager : Singleton<PauseManager>
 {
+    public static event Action OnPaused;
+
+    public static event Action OnContinued;
+
     [SerializeField] private AudioManager audioManager_;
     private PlayerInputActions inputActions_;
     private bool isPaused_ = false;
@@ -32,12 +37,18 @@ public class PauseManager : Singleton<PauseManager>
     {
         if (!isPaused_)
         {
+            OnPaused?.Invoke();
             isPaused_ = true;
             audioManager_.SetToPaused();
             TimeManager.Instance.ChangeTimeScale(0);
         }
-        else
+    }
+
+    public void Continue()
+    {
+        if (isPaused_)
         {
+            OnContinued?.Invoke();
             isPaused_ = false;
             audioManager_.SetToNormal();
             TimeManager.Instance.ChangeTimeScale(1);
