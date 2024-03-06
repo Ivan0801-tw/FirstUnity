@@ -7,6 +7,7 @@ public class PlayerAttackState : PlayerStateBase
     {
         manager.controller_.Stop();
         PlayerAnimation.Instance.PlayAttack();
+        PlayerSFX.Instance.PlayAttack();
     }
 
     public override void Update(PlayerStateManager manager)

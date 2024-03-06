@@ -6,6 +6,7 @@ public class PlayerDieState : PlayerStateBase
     public override void Enter(PlayerStateManager manager)
     {
         PlayerAnimation.Instance.PlayDie();
+        PlayerSFX.Instance.PlayDie();
     }
 
     public override void Update(PlayerStateManager manager)

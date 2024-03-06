@@ -7,6 +7,7 @@ public class PlayerJumpState : PlayerStateBase
     {
         manager.controller_.Jump();
         PlayerAnimation.Instance.PlayJump();
+        PlayerSFX.Instance.PlayJump();
     }
 
     public override void Update(PlayerStateManager manager)

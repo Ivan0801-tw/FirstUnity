@@ -6,6 +6,7 @@ public class PlayerMoveState : PlayerStateBase
     public override void Enter(PlayerStateManager manager)
     {
         PlayerAnimation.Instance.PlayWalk();
+        PlayerSFX.Instance.PlayWalk();
     }
 
     public override void Update(PlayerStateManager manager)

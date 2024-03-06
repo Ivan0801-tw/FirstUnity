@@ -5,9 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerStateManager : MonoBehaviour
 {
+    private PlayerStateBase currentState_;
+    private bool isDead_ = false;
     public PlayerController controller_ { get; private set; }
     public PlayerInputActions inputActions_ { get; private set; }
-    private PlayerStateBase currentState_;
 
     public readonly PlayerIdleState idle_ = new PlayerIdleState();
     public readonly PlayerMoveState move_ = new PlayerMoveState();
@@ -40,8 +41,9 @@ public class PlayerStateManager : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerStatus.Instance.Hp <= 0)
+        if (!isDead_ && PlayerStatus.Instance.Hp <= 0)
         {
+            isDead_ = true;
             SwitchState(die_);
         }
         currentState_.Update(this);

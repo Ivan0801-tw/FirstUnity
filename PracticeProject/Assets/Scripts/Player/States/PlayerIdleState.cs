@@ -5,8 +5,9 @@ public class PlayerIdleState : PlayerStateBase
 {
     public override void Enter(PlayerStateManager manager)
     {
-        PlayerAnimation.Instance.PlayIdle();
         manager.controller_.Stop();
+        PlayerAnimation.Instance.PlayIdle();
+        PlayerSFX.Instance.StopPlaying();
     }
 
     public override void Update(PlayerStateManager manager)
