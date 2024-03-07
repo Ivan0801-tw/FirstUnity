@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    private void Start()
+    private PlayerInputAction input_;
+
+    private void Awake()
     {
+        input_ = new PlayerInputAction();
+        input_.Enable();
+        input_.Player.Beat.performed += BeatDropped;
     }
 
-    // Update is called once per frame
-    private void Update()
+    private void BeatDropped(InputAction.CallbackContext context)
     {
+        Debug.Log("Beat Dropped");
     }
 }
