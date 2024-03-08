@@ -1,17 +1,25 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
     private Rigidbody2D _rigidbody;
+    private Transform _transform;
     private PlayerInputAction _input;
     private Vector2 _inputVector = Vector2.zero;
+
+    [SerializeField] private float _jumpForce = 5f;
+    [SerializeField] private float _speed = 5f;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _transform = GetComponent<Transform>();
         _input = new PlayerInputAction();
         _input.Player.Enable();
+        _input.Player.Movement.performed += Movement_performed;
+        _input.Player.Movement.canceled += Movement_canceled;
         _input.Player.Attack.performed += Attack_performed;
         _input.Player.Jump.performed += Jump_performed;
     }
@@ -24,23 +32,25 @@ public class Player : MonoBehaviour
     private void Movement()
     {
         _inputVector = _input.Player.Movement.ReadValue<Vector2>();
-        if (_inputVector.Equals(Vector2.zero))
-        {
-            return;
-        }
-        else if (_inputVector.Equals(Vector2.up))
+        _rigidbody.velocity = new Vector2(_inputVector.normalized.x * _speed, _rigidbody.velocity.y);
+    }
+
+    private void Movement_performed(InputAction.CallbackContext context)
+    {
+        float yInput = context.ReadValue<Vector2>().normalized.y;
+        if (yInput > 0)
         {
             Debug.Log("Look Up");
         }
-        else if (_inputVector.Equals(Vector2.down))
+        else if (yInput < 0)
         {
             Debug.Log("Look Down");
         }
-        else if (_inputVector.Equals(Vector2.left) ||
-           _inputVector.Equals(Vector2.right))
-        {
-            _rigidbody.AddForce(_inputVector, ForceMode2D.Impulse);
-        }
+    }
+
+    private void Movement_canceled(InputAction.CallbackContext context)
+    {
+        Debug.Log("Stop And Look Forward");
     }
 
     private void Attack_performed(InputAction.CallbackContext context)
@@ -50,6 +60,6 @@ public class Player : MonoBehaviour
 
     private void Jump_performed(InputAction.CallbackContext context)
     {
-        Debug.Log("Jump Performed");
+        _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
     }
 }
