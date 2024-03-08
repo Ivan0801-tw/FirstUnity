@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    private Rigidbody2D _rigidbody;
     private PlayerInputAction _input;
+    private Vector2 _inputVector = Vector2.zero;
 
     private void Awake()
     {
+        _rigidbody = GetComponent<Rigidbody2D>();
         _input = new PlayerInputAction();
         _input.Player.Enable();
         _input.Player.Attack.performed += Attack_performed;
@@ -17,11 +18,28 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 inputVector = _input.Player.Movement.ReadValue<Vector2>();
-        if (!inputVector.Equals(Vector2.zero))
+        Movement();
+    }
+
+    private void Movement()
+    {
+        _inputVector = _input.Player.Movement.ReadValue<Vector2>();
+        if (_inputVector.Equals(Vector2.zero))
         {
-            Debug.Log(inputVector);
-            transform.Translate(inputVector);
+            return;
+        }
+        else if (_inputVector.Equals(Vector2.up))
+        {
+            Debug.Log("Look Up");
+        }
+        else if (_inputVector.Equals(Vector2.down))
+        {
+            Debug.Log("Look Down");
+        }
+        else if (_inputVector.Equals(Vector2.left) ||
+           _inputVector.Equals(Vector2.right))
+        {
+            _rigidbody.AddForce(_inputVector, ForceMode2D.Impulse);
         }
     }
 
