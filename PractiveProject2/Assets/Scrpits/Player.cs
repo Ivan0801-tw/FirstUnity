@@ -5,17 +5,33 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    private PlayerInputAction input_;
+    private PlayerInputAction _input;
 
     private void Awake()
     {
-        input_ = new PlayerInputAction();
-        input_.Enable();
-        input_.Player.Beat.performed += BeatDropped;
+        _input = new PlayerInputAction();
+        _input.Player.Enable();
+        _input.Player.Attack.performed += Attack_performed;
+        _input.Player.Jump.performed += Jump_performed;
     }
 
-    private void BeatDropped(InputAction.CallbackContext context)
+    private void FixedUpdate()
     {
-        Debug.Log("Beat Dropped");
+        Vector2 inputVector = _input.Player.Movement.ReadValue<Vector2>();
+        if (!inputVector.Equals(Vector2.zero))
+        {
+            Debug.Log(inputVector);
+            transform.Translate(inputVector);
+        }
+    }
+
+    private void Attack_performed(InputAction.CallbackContext context)
+    {
+        Debug.Log("Attacke Performed");
+    }
+
+    private void Jump_performed(InputAction.CallbackContext context)
+    {
+        Debug.Log("Jump Performed");
     }
 }
