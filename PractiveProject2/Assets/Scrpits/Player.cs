@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,8 +18,6 @@ public class Player : MonoBehaviour
         _transform = GetComponent<Transform>();
         _input = new PlayerInputAction();
         _input.Player.Enable();
-        _input.Player.Movement.performed += Movement_performed;
-        _input.Player.Movement.canceled += Movement_canceled;
         _input.Player.Attack.performed += Attack_performed;
         _input.Player.Jump.performed += Jump_performed;
     }
@@ -35,27 +33,21 @@ public class Player : MonoBehaviour
         _rigidbody.velocity = new Vector2(_inputVector.normalized.x * _speed, _rigidbody.velocity.y);
     }
 
-    private void Movement_performed(InputAction.CallbackContext context)
+    private void Attack_performed(InputAction.CallbackContext context)
     {
-        float yInput = context.ReadValue<Vector2>().normalized.y;
+        float yInput = _inputVector.normalized.y;
         if (yInput > 0)
         {
-            Debug.Log("Look Up");
+            Debug.Log("Attack Up");
         }
         else if (yInput < 0)
         {
-            Debug.Log("Look Down");
+            Debug.Log("Attacke Down");
         }
-    }
-
-    private void Movement_canceled(InputAction.CallbackContext context)
-    {
-        Debug.Log("Stop And Look Forward");
-    }
-
-    private void Attack_performed(InputAction.CallbackContext context)
-    {
-        Debug.Log("Attacke Performed");
+        else
+        {
+            Debug.Log("Attacke Front");
+        }
     }
 
     private void Jump_performed(InputAction.CallbackContext context)
