@@ -1,11 +1,13 @@
 ﻿using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    private Rigidbody2D _rigidbody;
-    private Transform _transform;
+    [Header("Components")]
+    [SerializeField] private Rigidbody2D _rigidbody;
+    [SerializeField] private Transform _transform;
     private PlayerInputAction _input;
     private Vector2 _inputVector = Vector2.zero;
 
@@ -18,10 +20,12 @@ public class Player : MonoBehaviour
     [SerializeField] private float _jumpForce = 5f;
     [SerializeField] private float _speed = 5f;
 
+    [Header("Status")]
+    [SerializeField] private bool _isJumping = false;
+    [SerializeField] private bool _isGrounded = false;
+
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
-        _transform = GetComponent<Transform>();
         _input = new PlayerInputAction();
         _input.Player.Enable();
         _input.Player.Attack.performed += Attack_performed;
@@ -30,6 +34,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        UpdateStatus();
         Movement();
     }
 
@@ -58,8 +63,9 @@ public class Player : MonoBehaviour
 
     private void Jump_performed(InputAction.CallbackContext context)
     {
-        if (IsGrounded())
+        if (_isGrounded && !_isJumping)
         {
+            _isJumping = true;
             _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
         }
     }
@@ -67,5 +73,20 @@ public class Player : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(_groundPoint.position, _groundOffsetRadius, _groundLayerMask);
+    }
+
+    private void UpdateStatus()
+    {
+        _isGrounded = IsGrounded();
+        if (_isGrounded && _isJumping && _rigidbody.velocity.y <= 0)
+        {
+            _isJumping = false;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawSphere(_groundPoint.position, _groundOffsetRadius);
     }
 }
