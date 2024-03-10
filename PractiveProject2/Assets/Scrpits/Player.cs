@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,10 +9,9 @@ public class Player : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Rigidbody2D _rigidbody;
     [SerializeField] private Transform _transform;
-    private PlayerInputAction _input;
-    private Vector2 _inputVector = Vector2.zero;
+    [SerializeField] private PlayerInputHandler _inputHandler;
 
-    [Header("GroundCheck")]
+    [Header("Ground Check")]
     [SerializeField] private Transform _groundPoint;
     [SerializeField] private float _groundOffsetRadius;
     [SerializeField] private LayerMask _groundLayerMask;
@@ -24,50 +24,62 @@ public class Player : MonoBehaviour
     [SerializeField] private bool _isJumping = false;
     [SerializeField] private bool _isGrounded = false;
 
+    [Header("Jump Buffer")]
+    [SerializeField] private float _jumpBufferTime = 0.25f;
+    [SerializeField] private float _jumpBufferTimer = 0.25f;
+    [SerializeField] private bool _isJumpBuffering = false;
+
     private void Awake()
     {
-        _input = new PlayerInputAction();
-        _input.Player.Enable();
-        _input.Player.Attack.performed += Attack_performed;
-        _input.Player.Jump.performed += Jump_performed;
     }
 
     private void FixedUpdate()
     {
         UpdateStatus();
         Movement();
+        Attack();
+        Jump();
     }
 
     private void Movement()
     {
-        _inputVector = _input.Player.Movement.ReadValue<Vector2>();
-        _rigidbody.velocity = new Vector2(_inputVector.normalized.x * _speed, _rigidbody.velocity.y);
+        _rigidbody.velocity = new Vector2(_inputHandler.Movement.normalized.x * _speed, _rigidbody.velocity.y);
     }
 
-    private void Attack_performed(InputAction.CallbackContext context)
+    private void Attack()
     {
-        float yInput = _inputVector.normalized.y;
-        if (yInput > 0)
+        if (!_inputHandler.Attack)
         {
-            Debug.Log("Attack Up");
+            return;
         }
-        else if (yInput < 0)
+        switch (_inputHandler.AttackDirection)
         {
-            Debug.Log("Attacke Down");
-        }
-        else
-        {
-            Debug.Log("Attacke Front");
+            case AttackDriection.Up:
+                Debug.Log("Attack Up");
+                break;
+
+            case AttackDriection.Front:
+                Debug.Log("Attacke Front");
+                break;
+
+            case AttackDriection.Down:
+                Debug.Log("Attacke Down");
+                break;
         }
     }
 
-    private void Jump_performed(InputAction.CallbackContext context)
+    private void Jump()
     {
+        if (!_inputHandler.Jump)
+        {
+            return;
+        }
         if (_isGrounded && !_isJumping)
         {
             _isJumping = true;
             _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
         }
+        _isJumpBuffering = true;
     }
 
     private bool IsGrounded()

@@ -600,6 +600,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1228364622}
   - component: {fileID: 1228364621}
+  - component: {fileID: 1228364625}
   - component: {fileID: 1228364620}
   - component: {fileID: 1228364623}
   - component: {fileID: 1228364624}
@@ -624,6 +625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 1228364623}
   _transform: {fileID: 1228364622}
+  _inputHandler: {fileID: 1228364625}
   _groundPoint: {fileID: 1886528970}
   _groundOffsetRadius: 0.2
   _groundLayerMask:
@@ -631,6 +633,11 @@ MonoBehaviour:
     m_Bits: 128
   _jumpForce: 10
   _speed: 10
+  _isJumping: 0
+  _isGrounded: 0
+  _jumpBufferTime: 0.25
+  _jumpBufferTimer: 0.25
+  _isJumpBuffering: 0
 --- !u!212 &1228364621
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -761,6 +768,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &1228364625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228364619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a0eedc3edf6e204fac5e9e0b971aa49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1886528969
 GameObject:
   m_ObjectHideFlags: 0
