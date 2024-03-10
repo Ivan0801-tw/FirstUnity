@@ -9,6 +9,12 @@ public class Player : MonoBehaviour
     private PlayerInputAction _input;
     private Vector2 _inputVector = Vector2.zero;
 
+    [Header("GroundCheck")]
+    [SerializeField] private Transform _groundPoint;
+    [SerializeField] private float _groundOffsetRadius;
+    [SerializeField] private LayerMask _groundLayerMask;
+
+    [Header("Movement")]
     [SerializeField] private float _jumpForce = 5f;
     [SerializeField] private float _speed = 5f;
 
@@ -52,6 +58,14 @@ public class Player : MonoBehaviour
 
     private void Jump_performed(InputAction.CallbackContext context)
     {
-        _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+        if (IsGrounded())
+        {
+            _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+        }
+    }
+
+    private bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(_groundPoint.position, _groundOffsetRadius, _groundLayerMask);
     }
 }
