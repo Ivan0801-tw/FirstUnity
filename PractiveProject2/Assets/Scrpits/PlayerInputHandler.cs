@@ -34,9 +34,26 @@ public class PlayerInputHandler : MonoBehaviour
         }
     }
 
-    private bool _attack;
+    private bool _attack = false;
 
-    public bool Jump { get; private set; } = false;
+    public bool Jump
+    {
+        get
+        {
+            var value = _jump;
+            if (value == true)
+            {
+                _jump = false;
+            }
+            return value;
+        }
+        private set
+        {
+            _jump = value;
+        }
+    }
+
+    private bool _jump = false;
 
     private PlayerInputAction _input;
 

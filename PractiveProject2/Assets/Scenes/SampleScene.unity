@@ -633,11 +633,9 @@ MonoBehaviour:
     m_Bits: 128
   _jumpForce: 10
   _speed: 10
-  _isJumping: 0
   _isGrounded: 0
   _jumpBufferTime: 0.25
-  _jumpBufferTimer: 0.25
-  _isJumpBuffering: 0
+  _jumpBufferTimer: 0
 --- !u!212 &1228364621
 SpriteRenderer:
   m_ObjectHideFlags: 0

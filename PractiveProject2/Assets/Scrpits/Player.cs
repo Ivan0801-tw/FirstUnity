@@ -17,17 +17,15 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask _groundLayerMask;
 
     [Header("Movement")]
-    [SerializeField] private float _jumpForce = 5f;
+    [SerializeField] private float _jumpForce = 75f;
     [SerializeField] private float _speed = 5f;
 
     [Header("Status")]
-    [SerializeField] private bool _isJumping = false;
     [SerializeField] private bool _isGrounded = false;
 
     [Header("Jump Buffer")]
     [SerializeField] private float _jumpBufferTime = 0.25f;
-    [SerializeField] private float _jumpBufferTimer = 0.25f;
-    [SerializeField] private bool _isJumpBuffering = false;
+    [SerializeField] private float _jumpBufferTimer = 0f;
 
     private void Awake()
     {
@@ -70,30 +68,27 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (!_inputHandler.Jump)
-        {
-            return;
-        }
-        if (_isGrounded && !_isJumping)
-        {
-            _isJumping = true;
-            _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
-        }
-        _isJumpBuffering = true;
-    }
+        var isJumpThisFrame = _inputHandler.Jump;
 
-    private bool IsGrounded()
-    {
-        return Physics2D.OverlapCircle(_groundPoint.position, _groundOffsetRadius, _groundLayerMask);
+        if (isJumpThisFrame)
+        {
+            _jumpBufferTimer = _jumpBufferTime;
+        }
+        else if (_jumpBufferTimer > 0f)
+        {
+            _jumpBufferTimer -= Time.deltaTime;
+        }
+
+        if (_jumpBufferTimer > 0f && _isGrounded)
+        {
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _jumpForce);
+            _jumpBufferTimer = 0f;
+        }
     }
 
     private void UpdateStatus()
     {
-        _isGrounded = IsGrounded();
-        if (_isGrounded && _isJumping && _rigidbody.velocity.y <= 0)
-        {
-            _isJumping = false;
-        }
+        _isGrounded = Physics2D.OverlapCircle(_groundPoint.position, _groundOffsetRadius, _groundLayerMask);
     }
 
     private void OnDrawGizmos()
