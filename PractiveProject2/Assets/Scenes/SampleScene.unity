@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c24ad3d3d6e62f04e8fcb104491ffdbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: {x: 0, y: 0, z: -1}
+  _offset: {x: 0, y: 2, z: -10}
   _velocity: {x: 1, y: 1, z: 1}
   _smoothTime: 0.1
   _target: {fileID: 1228364622}

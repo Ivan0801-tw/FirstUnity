@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CaremaFollow : MonoBehaviour
 {
-    [SerializeField] private Vector3 _offset = new Vector3(0f, 0f, -10f);
-    [SerializeField] private Vector3 _velocity = Vector3.one;
-    [SerializeField] private float _smoothTime = 0.01f;
+    [SerializeField] private Vector3 _offset;
+    [SerializeField] private Vector3 _velocity;
+    [SerializeField] private float _smoothTime;
 
     [SerializeField] private Transform _target;
 
