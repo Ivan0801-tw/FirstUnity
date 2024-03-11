@@ -27,6 +27,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float _jumpBufferTime = 0.25f;
     [SerializeField] private float _jumpBufferTimer = 0f;
 
+    [Header("BodyCoomponents")]
+    [SerializeField] private ArmHandler _armHandler;
+
     private void Awake()
     {
     }
@@ -50,6 +53,9 @@ public class Player : MonoBehaviour
         {
             return;
         }
+
+        _armHandler.SwitchArm();
+
         switch (_inputHandler.AttackDirection)
         {
             case AttackDriection.Up:
@@ -91,9 +97,11 @@ public class Player : MonoBehaviour
         _isGrounded = Physics2D.OverlapCircle(_groundPoint.position, _groundOffsetRadius, _groundLayerMask);
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.white;
-        Gizmos.DrawSphere(_groundPoint.position, _groundOffsetRadius);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.white;
+    //    var scale = transform.localScale;
+    //    scale.y = 0.2f;
+    //    Gizmos.DrawCube(_groundPoint.position, scale);
+    //}
 }
