@@ -6,8 +6,8 @@ using Zenject;
 
 public class PlayerInput_CSharp : IInput
 {
-    public Vector2 _movement = Vector2.zero;
-    public AttackDriection _attackDirection = AttackDriection.Front;
+    private Vector2 _movement = Vector2.zero;
+    private AttackDriection _attackDirection = AttackDriection.Front;
     private bool _isAttack = false;
     private bool _isJump = false;
 
