@@ -1,69 +1,21 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Windows;
+using UnityEngine.Rendering;
+using Zenject;
 
-public enum AttackDriection
+public class PlayerInput_CSharp : IInput
 {
-    Up,
-    Front,
-    Down,
-}
-
-public class PlayerInputHandler : MonoBehaviour
-{
-    public Vector2 Movement { get; private set; } = Vector2.zero;
-    public AttackDriection AttackDirection { get; private set; } = AttackDriection.Front;
-
-    public bool Attack
-    {
-        get
-        {
-            var value = _attack;
-            if (value == true)
-            {
-                _attack = false;
-            }
-            return value;
-        }
-        private set
-        {
-            _attack = value;
-        }
-    }
-
-    private bool _attack = false;
-
-    public bool Jump
-    {
-        get
-        {
-            var value = _jump;
-            if (value == true)
-            {
-                _jump = false;
-            }
-            return value;
-        }
-        private set
-        {
-            _jump = value;
-        }
-    }
-
-    private bool _jump = false;
+    public Vector2 _movement = Vector2.zero;
+    public AttackDriection _attackDirection = AttackDriection.Front;
+    private bool _isAttack = false;
+    private bool _isJump = false;
 
     private PlayerInputAction _input;
 
-    private void Awake()
+    public PlayerInput_CSharp()
     {
         _input = new PlayerInputAction();
-    }
-
-    private void OnEnable()
-    {
         _input.Player.Enable();
         _input.Player.Movement.performed += Movement_performed;
         _input.Player.Movement.canceled += Movement_canceled;
@@ -75,7 +27,7 @@ public class PlayerInputHandler : MonoBehaviour
         _input.Player.Jump.canceled += Jump_canceled;
     }
 
-    private void OnDisable()
+    ~PlayerInput_CSharp()
     {
         _input.Player.Disable();
         _input.Player.Movement.performed -= Movement_performed;
@@ -90,44 +42,74 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Movement_performed(InputAction.CallbackContext context)
     {
-        Movement = context.ReadValue<Vector2>();
-        if (Movement.y > 0)
+        _movement = context.ReadValue<Vector2>();
+        if (_movement.y > 0)
         {
-            AttackDirection = AttackDriection.Up;
+            _attackDirection = AttackDriection.Up;
         }
-        else if (Movement.y < 0)
+        else if (_movement.y < 0)
         {
-            AttackDirection = AttackDriection.Down;
+            _attackDirection = AttackDriection.Down;
         }
         else
         {
-            AttackDirection = AttackDriection.Front;
+            _attackDirection = AttackDriection.Front;
         }
     }
 
     private void Movement_canceled(InputAction.CallbackContext context)
     {
-        Movement = Vector2.zero;
-        AttackDirection = AttackDriection.Front;
+        _movement = Vector2.zero;
+        _attackDirection = AttackDriection.Front;
     }
 
     private void Attack_performed(InputAction.CallbackContext context)
     {
-        Attack = true;
+        _isAttack = true;
     }
 
     private void Attack_canceled(InputAction.CallbackContext context)
     {
-        Attack = false;
+        _isAttack = false;
     }
 
     private void Jump_performed(InputAction.CallbackContext context)
     {
-        Jump = true;
+        _isJump = true;
     }
 
     private void Jump_canceled(InputAction.CallbackContext context)
     {
-        Jump = false;
+        _isJump = false;
+    }
+
+    public Vector2 GetMovement()
+    {
+        return _movement;
+    }
+
+    public bool GetJump()
+    {
+        var isJump = _isJump;
+        if (isJump)
+        {
+            _isJump = false;
+        }
+        return isJump;
+    }
+
+    public AttackDriection GetAttackDirection()
+    {
+        return _attackDirection;
+    }
+
+    public bool GetAttack()
+    {
+        var isAttack = _isAttack;
+        if (isAttack)
+        {
+            _isAttack = false;
+        }
+        return isAttack;
     }
 }
