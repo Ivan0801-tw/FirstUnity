@@ -6,6 +6,7 @@ public class Installer : MonoInstaller
 {
     public override void InstallBindings()
     {
+        //Player
         Container.Bind(typeof(IStatus), typeof(IGround))
             .WithId("Player").To<Player_Charp>().AsSingle();
         Container.Bind(typeof(IInput))
